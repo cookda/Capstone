@@ -1,5 +1,7 @@
 package core;
 
+import api.OSMGrabber;
+import gui.MainFrame;
 import vehicle.VehicleType;
 import vehicle.Vehicle;
 
@@ -10,10 +12,7 @@ import vehicle.Vehicle;
 public class Tester {
 
     public static void main(String[] args) {
-        Vehicle v = new Vehicle(VehicleType.CAR);
-
-        System.out.println(v.getType().getName());
-        v.setType(VehicleType.TRUCK);
-        System.out.println(v.getType().getName());
+        OSMGrabber test = new OSMGrabber();
+        test.getArea(-81.72, -81.63, 36.18, 36.23);
     }
 }

@@ -1,7 +1,9 @@
 package nodes.impl;
 
+import roads.TwoLaneRoad;
 import roads.impl.Connection;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,10 +16,8 @@ public abstract class TrafficNode {
     private float y;
 
 
-
     public TrafficNode(float x, float y) {
-        setX(x);
-        setY(y);
+        this(x, y, new TwoLaneRoad());
     }
 
     public TrafficNode(float x, float y, Connection... connections) {
