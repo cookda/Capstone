@@ -1,11 +1,9 @@
 package api;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 
 /**
  * Created by aron on 2/9/17.
@@ -32,7 +30,9 @@ public class OSMGrabber {
 
             br.close();
             con.disconnect();
-
+            BufferedWriter bwr = new BufferedWriter(new FileWriter(new File("C:/Users/gigaw/CapstoneData/mapdata.dat")));
+            bwr.write(resp.toString());
+            bwr.close();
             System.out.println(resp.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
