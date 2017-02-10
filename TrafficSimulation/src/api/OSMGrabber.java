@@ -2,6 +2,8 @@ package api;
 
 import core.UserProfile;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -41,5 +43,26 @@ public class OSMGrabber {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public Image getImage(double latitude, double longitude, int zoomLevel) {
+        try {
+            URL imgUrl = new URL(UserProfile.IMG_URL + "lat=" + latitude + "&lon=" + longitude + "&zoom=" + zoomLevel);
+            HttpURLConnection con = (HttpURLConnection) imgUrl.openConnection();
+            con.setRequestMethod("GET");
+
+            Image returned = ImageIO.read(con.getInputStream());
+
+            if (returned != null) {
+                return returned;
+            } else {
+                System.out.println("Retrieving image failed");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
     }
 }
