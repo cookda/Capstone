@@ -30,7 +30,9 @@ public class OSMGrabber {
 
             br.close();
             con.disconnect();
-            BufferedWriter bwr = new BufferedWriter(new FileWriter(new File("C:/Users/gigaw/CapstoneData/mapdata.dat")));
+            //System.getProperty("string") takes a String that Java has defined. Googling Java System Properties will show them all and what they refer to
+            //user.home refers to /home/user on Linux and C:\Users\Username on Windows
+            BufferedWriter bwr = new BufferedWriter(new FileWriter(new File(System.getProperty("user.home") + "/CapstoneData/mapdata.dat")));
             bwr.write(resp.toString());
             bwr.close();
             System.out.println(resp.toString());
