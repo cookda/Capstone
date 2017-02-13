@@ -1,6 +1,7 @@
 package core;
 
 import api.OSMGrabber;
+import cache.CacheHandler;
 import gui.MainFrame;
 import vehicle.VehicleType;
 import vehicle.Vehicle;
@@ -22,14 +23,17 @@ public class Tester {
     public static void main(String[] args) {
 
         OSMGrabber test = new OSMGrabber();
-        test.getArea(BOONE_LAT, BOONE_LONG, 0.03);
-
-        File f = new File(UserProfile.USER_DIR + "img.png");
-        BufferedImage img = (BufferedImage) test.getImage(BOONE_LAT, BOONE_LONG, 15);
-        try {
-            ImageIO.write(img, "png", f);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        double lat = BOONE_LAT;
+        double lon = BOONE_LONG;
+        double rad = 0.03;
+        CacheHandler ch = new CacheHandler(lat, lon, rad);
+        if (!ch.isCached()) {
+            test.getArea(lat, lon, rad);
+            test.getImage(lat, lon, 15);
+            ch.cacheArea();
+        } else {
+            System.out.println("Area cached");
         }
+
     }
 }
