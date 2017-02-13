@@ -1,5 +1,6 @@
 package core;
 
+import ParseData.SortData;
 import api.OSMGrabber;
 import cache.CacheHandler;
 import gui.MainFrame;
@@ -22,5 +23,7 @@ public class Tester {
 
     public static void main(String[] args) {
         MapTest.basicTest();
+        SortData sd = new SortData();
+        sd.readFile("mapdata.dat");
     }
 }
