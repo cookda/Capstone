@@ -16,7 +16,11 @@ public class OSMGrabber {
 
     private final static String OSM_URL = "http://overpass-api.de/api/map";
 
-    public void getArea(double minLong, double maxLong, double minLat, double maxLat) {
+    public void getArea(double lat, double lon, double radius) {
+        getArea(lat - radius, lat + radius, lon - radius, lon + radius);
+    }
+
+    public void getArea(double minLat, double maxLat, double minLong, double maxLong) {
         try {
             URL osmUrl = new URL(OSM_URL+"?bbox="+minLong+","+minLat+","+maxLong+","+maxLat);
             HttpURLConnection con = (HttpURLConnection) osmUrl.openConnection();

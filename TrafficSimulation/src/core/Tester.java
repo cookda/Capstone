@@ -16,15 +16,16 @@ import java.io.File;
  */
 public class Tester {
 
+    private final static double BOONE_LAT = 36.2168;
+    private final static double BOONE_LONG = -81.6746;
+
     public static void main(String[] args) {
-        double lat = 36.215;
-        double lon = -81.685;
 
         OSMGrabber test = new OSMGrabber();
-//        test.getArea(-81.67, -81.65, 36.19, 36.20);
+        test.getArea(BOONE_LAT, BOONE_LONG, 0.03);
 
         File f = new File(UserProfile.USER_DIR + "img.png");
-        BufferedImage img = (BufferedImage) test.getImage(lat, lon, 14);
+        BufferedImage img = (BufferedImage) test.getImage(BOONE_LAT, BOONE_LONG, 15);
         try {
             ImageIO.write(img, "png", f);
         } catch (Exception e) {
