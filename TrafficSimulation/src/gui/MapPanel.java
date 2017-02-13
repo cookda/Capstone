@@ -1,8 +1,13 @@
 package gui;
 
+import core.UserProfile;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -11,8 +16,13 @@ import java.util.Map;
 public class MapPanel extends JPanel {
 
     private Image map;
+    private JLabel mapLbl; //temp
 
-    public MapPanel() {
+    public MapPanel() throws IOException {
+        map = ImageIO.read(new File(UserProfile.IMAGE_DIR + "36.2168_-81.6746_15.png"));
+        mapLbl = new JLabel();
+        mapLbl.setIcon(new ImageIcon(map));
+        add(mapLbl);
     }
 
 }

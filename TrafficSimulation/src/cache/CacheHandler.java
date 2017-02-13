@@ -59,8 +59,9 @@ public class CacheHandler {
     public void cacheArea() {
         File f = new File(UserProfile.USER_DIR + CACHE_NAME);
         try {
-            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(f)));
-            pw.write(buildCacheEntry());
+            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(f, true))); //Make this check if the file exists, false if it does not (append mode)
+            pw.append(buildCacheEntry());
+            pw.append('\n');
             pw.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -44,7 +44,7 @@ public class OSMGrabber {
             double rad = maxLat - minLat;
             double cntrLat = minLat + rad;
             double cntrLon = minLong + rad;
-            BufferedWriter bwr = new BufferedWriter(new FileWriter(new File(UserProfile.DATA_DIR + cntrLat + "_" + cntrLon + ".dat")));
+            BufferedWriter bwr = new BufferedWriter(new FileWriter(new File(UserProfile.DATA_DIR + cntrLat + "_" + cntrLon + "_" + rad + ".dat")));
             bwr.write(resp.toString());
             bwr.close();
             System.out.println(resp.toString());
