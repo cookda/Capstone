@@ -20,6 +20,7 @@ public class Tester {
                 15
             )
         );
+        up.setCache(new CacheHandler());
 
         MapTest.basicTest();
     }

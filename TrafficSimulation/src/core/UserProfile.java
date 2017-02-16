@@ -15,7 +15,6 @@ public class UserProfile {
 
 
     protected UserProfile() {
-        cache = new CacheHandler();
     }
 
     public static UserProfile getInstance() {
@@ -35,5 +34,9 @@ public class UserProfile {
 
     public CacheHandler getCache() {
         return cache;
+    }
+
+    public void setCache(CacheHandler ch) {
+        cache = ch;
     }
 }

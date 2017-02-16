@@ -10,6 +10,9 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 /**
@@ -52,7 +55,13 @@ public class OSMGrabber {
 
             br.close();
             con.disconnect();
-            BufferedWriter bwr = new BufferedWriter(new FileWriter(new File(Constants.DATA_DIR + um.getDataName())));
+
+            Path dataPath = Paths.get(Constants.DATA_DIR);
+            if (!Files.exists(dataPath)) {
+                Files.createDirectory(dataPath);
+            }
+
+            BufferedWriter bwr = new BufferedWriter(new FileWriter(new File(dataPath + "/" + um.getDataName())));
             bwr.write(resp.toString());
             bwr.close();
             System.out.println(resp.toString());
@@ -72,8 +81,13 @@ public class OSMGrabber {
 
             Image returned = ImageIO.read(con.getInputStream());
 
+            Path imgPath = Paths.get(Constants.IMAGE_DIR);
+            if (!Files.exists(imgPath)) {
+                Files.createDirectory(imgPath);
+            }
+
             try {
-                ImageIO.write((BufferedImage) returned, "png", new File(Constants.IMAGE_DIR + up.getMap().getImageName()));
+                ImageIO.write((BufferedImage) returned, "png", new File(imgPath + "/" + up.getMap().getImageName()));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
