@@ -26,7 +26,7 @@ public class UserMap {
     }
 
     private String generateDataName() {
-        return latitude + "_" + longitude + "_" + radius + ".dat";
+        return latitude + "_" + longitude + "_" + radius + ".xml";
     }
 
     public int getZoomLevel() {
