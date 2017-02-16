@@ -1,5 +1,7 @@
 package cache;
 
+import core.Constants;
+import core.UserMap;
 import core.UserProfile;
 
 import java.io.*;
@@ -19,16 +21,18 @@ public class CacheHandler {
     private double currentLat;
     private double currentLong;
     private double currentRadius;
+    private UserMap um;
 
 
-    public CacheHandler(double lat, double lon, double radius) {
-        currentLat = lat;
-        currentLong = lon;
-        currentRadius = radius;
+    public CacheHandler() {
+        um = UserProfile.getInstance().getMap();
+        currentLat = um.getLatitude();
+        currentLong = um.getLongitude();
+        currentRadius = um.getRadius();
     }
 
     public boolean isCached() {
-        File f = new File(UserProfile.USER_DIR + CACHE_NAME);
+        File f = new File(Constants.USER_DIR + CACHE_NAME);
         if (!f.exists()) {
             try {
                 if (!f.createNewFile()) {
@@ -57,7 +61,7 @@ public class CacheHandler {
 
 
     public void cacheArea() {
-        File f = new File(UserProfile.USER_DIR + CACHE_NAME);
+        File f = new File(Constants.USER_DIR + CACHE_NAME);
         try {
             PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(f, true))); //Make this check if the file exists, false if it does not (append mode)
             pw.append(buildCacheEntry());
@@ -77,17 +81,7 @@ public class CacheHandler {
      * @return built string of cache entry
      */
     private String buildCacheEntry() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(currentLat);
-        sb.append(",");
-        sb.append(currentLong);
-        sb.append(",");
-        sb.append(currentRadius);
-        sb.append(",");
-        sb.append(currentLat + "_" + currentLong + ".dat");
-        sb.append(",");
-        sb.append(currentLat + "_" + currentLong + ".png");
-        return sb.toString();
+        return currentLat + "," + currentLong + "," + currentRadius + "," + um.getDataName() + "," + um.getImageName();
     }
 
 }

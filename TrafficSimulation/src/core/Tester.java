@@ -1,17 +1,7 @@
 package core;
 
-import api.OSMGrabber;
 import cache.CacheHandler;
-import gui.MainFrame;
 import test.MapTest;
-import vehicle.VehicleType;
-import vehicle.Vehicle;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by aron on 1/25/17.
@@ -21,6 +11,16 @@ public class Tester {
 
 
     public static void main(String[] args) {
+        UserProfile up = UserProfile.getInstance();
+        up.setMap(
+            new UserMap(
+                Constants.BOONE_LAT,
+                Constants.BOONE_LONG,
+                0.03,
+                15
+            )
+        );
+
         MapTest.basicTest();
     }
 }

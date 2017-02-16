@@ -1,5 +1,7 @@
 package api;
 
+import core.Constants;
+import core.UserMap;
 import core.UserProfile;
 
 import javax.imageio.ImageIO;
@@ -17,13 +19,24 @@ public class OSMGrabber {
 
     private final static String OSM_URL = "http://overpass-api.de/api/map";
 
-    public void getArea(double lat, double lon, double radius) {
-        getArea(lat - radius, lat + radius, lon - radius, lon + radius);
+    private UserProfile up;
+    private UserMap um;
+
+    public OSMGrabber() {
+        up = UserProfile.getInstance();
+        um = up.getMap();
     }
 
-    public void getArea(double minLat, double maxLat, double minLong, double maxLong) {
+
+    public void getArea() {
         try {
-            URL osmUrl = new URL(OSM_URL+"?bbox="+minLong+","+minLat+","+maxLong+","+maxLat);
+            double rad = um.getRadius();
+            double minLat = um.getLatitude() - rad;
+            double maxLat = um.getLatitude() + rad;
+            double minLong = um.getLongitude() - rad;
+            double maxLong = um.getLongitude() + rad;
+
+            URL osmUrl = new URL(OSM_URL + "?bbox=" + minLong +"," + minLat + "," + maxLong + "," + maxLat);
             HttpURLConnection con = (HttpURLConnection) osmUrl.openConnection();
             con.setRequestMethod("GET");
 
@@ -39,12 +52,7 @@ public class OSMGrabber {
 
             br.close();
             con.disconnect();
-            //System.getProperty("string") takes a String that Java has defined. Googling Java System Properties will show them all and what they refer to
-            //user.home refers to /home/user on Linux and C:\Users\Username on Windows
-            double rad = maxLat - minLat;
-            double cntrLat = minLat + rad;
-            double cntrLon = minLong + rad;
-            BufferedWriter bwr = new BufferedWriter(new FileWriter(new File(UserProfile.DATA_DIR + cntrLat + "_" + cntrLon + "_" + rad + ".dat")));
+            BufferedWriter bwr = new BufferedWriter(new FileWriter(new File(Constants.DATA_DIR + um.getDataName())));
             bwr.write(resp.toString());
             bwr.close();
             System.out.println(resp.toString());
@@ -55,20 +63,17 @@ public class OSMGrabber {
 
     /**
      * Now saves an image instead of returning
-     * @param latitude
-     * @param longitude
-     * @param zoomLevel
      */
-    public void getImage(double latitude, double longitude, int zoomLevel) {
+    public void getImage() {
         try {
-            URL imgUrl = new URL(UserProfile.IMG_URL + "lat=" + latitude + "&lon=" + longitude + "&zoom=" + zoomLevel);
+            URL imgUrl = new URL(Constants.IMG_URL + "lat=" + um.getLatitude() + "&lon=" + um.getLongitude() + "&zoom=" + um.getZoomLevel());
             HttpURLConnection con = (HttpURLConnection) imgUrl.openConnection();
             con.setRequestMethod("GET");
 
             Image returned = ImageIO.read(con.getInputStream());
 
             try {
-                ImageIO.write((BufferedImage) returned, "png", new File(UserProfile.IMAGE_DIR + latitude + "_" + longitude + "_" + zoomLevel + ".png"));
+                ImageIO.write((BufferedImage) returned, "png", new File(Constants.IMAGE_DIR + up.getMap().getImageName()));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

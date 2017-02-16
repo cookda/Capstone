@@ -1,5 +1,6 @@
 package gui;
 
+import core.Constants;
 import core.UserProfile;
 
 import javax.imageio.ImageIO;
@@ -19,7 +20,7 @@ public class MapPanel extends JPanel {
     private JLabel mapLbl; //temp
 
     public MapPanel() throws IOException {
-        map = ImageIO.read(new File(UserProfile.IMAGE_DIR + "36.2168_-81.6746_15.png"));
+        map = ImageIO.read(new File(Constants.IMAGE_DIR + "36.2168_-81.6746_15.png"));
         mapLbl = new JLabel();
         mapLbl.setIcon(new ImageIcon(map));
         add(mapLbl);

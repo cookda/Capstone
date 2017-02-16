@@ -2,6 +2,8 @@ package test;
 
 import api.OSMGrabber;
 import cache.CacheHandler;
+import core.UserMap;
+import core.UserProfile;
 import gui.MainFrame;
 
 import java.io.IOException;
@@ -13,17 +15,11 @@ public class MapTest {
 
     public static void basicTest() {
 
-        final double BOONE_LAT = 36.2168;
-        final double BOONE_LONG = -81.6746;
-
         OSMGrabber test = new OSMGrabber();
-        double lat = BOONE_LAT;
-        double lon = BOONE_LONG;
-        double rad = 0.02;
-        CacheHandler ch = new CacheHandler(lat, lon, rad);
+        CacheHandler ch = UserProfile.getInstance().getCache();
         if (!ch.isCached()) {
-            test.getArea(lat, lon, rad);
-            test.getImage(lat, lon, 15);
+            test.getArea();
+            test.getImage();
             ch.cacheArea();
         } else {
             System.out.println("Area cached");
