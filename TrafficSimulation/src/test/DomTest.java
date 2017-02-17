@@ -9,7 +9,9 @@ import core.UserProfile;
 public class DomTest {
     public static void printNodes(){
         SortData sd = new SortData();
-        sd.readData();
-        UserProfile.getInstance().getNodes().forEach(System.out::println);
+        sd.readNodes();
+        sd.readWays();
+        //UserProfile.getInstance().getNodes().forEach(System.out::println);
+        UserProfile.getInstance().getWayNodes().forEach(System.out::println);
     }
 }

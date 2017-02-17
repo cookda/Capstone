@@ -31,7 +31,6 @@ public class TNode {
     }
 
     public int getId() {
-
         return id;
     }
 
