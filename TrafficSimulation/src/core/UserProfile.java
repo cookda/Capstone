@@ -2,6 +2,8 @@ package core;
 
 import cache.CacheHandler;
 
+import java.util.ArrayList;
+
 /**
  * Created by aron on 2/10/17.
  */
@@ -12,9 +14,15 @@ public class UserProfile {
     private static UserProfile instance;
     private UserMap map;
     private CacheHandler cache;
+    private ArrayList nodes;
 
+
+    public ArrayList getNodes() {
+        return nodes;
+    }
 
     protected UserProfile() {
+        nodes = new ArrayList<>();
     }
 
     public static UserProfile getInstance() {

@@ -1,9 +1,15 @@
 package ParseData;
 
+import core.Constants;
 import core.UserProfile;
+import nodes.impl.TNode;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamReader;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,18 +18,44 @@ import java.io.FileReader;
 /**
  * Created by gigaw on 2/10/2017.
  */
+
 public class SortData {
-    public void readFile(String fileName){
-        XMLInputFactory factory = XMLInputFactory.newInstance();
-        try{
-        XMLStreamReader reader = factory.createXMLStreamReader(new FileInputStream(fileName));
-        while(reader.hasNext()) {
-            if("node".equals(reader.getLocalName())){
-                System.out.println(reader.getLocalName());
+    public void readData() {
+    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    try {
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(Constants.DATA_DIR + UserProfile.getInstance().getMap().getDataName());
+        doc.getDocumentElement().normalize();
+        System.out.println("Root Element :" + doc.getDocumentElement().getNodeName());
+        NodeList nodes = doc.getElementsByTagName("node");
+        for (int temp = 0; temp < nodes.getLength(); temp++) {
+            Node nNode = nodes.item(temp);
+            //System.out.println("\nCurrent Element :" + nNode.getNodeName());
+            NamedNodeMap curNode = nNode.getAttributes();
+            int id = 0;
+            double lat = 0;
+            double lon = 0;
+
+            for (int i = 0; i < curNode.getLength(); i++) {
+                String nodeName = curNode.item(i).getNodeName();
+                if (nodeName.equals("id")) {
+                    id = Integer.parseInt(curNode.item(i).getNodeValue());
+                }
+                if (nodeName.equals("lat")) {
+                    lat = Double.parseDouble(curNode.item(i).getNodeValue());
+                }
+                if (nodeName.equals("lon")) {
+                    lon = Double.parseDouble(curNode.item(i).getNodeValue());
+                }
             }
+            UserProfile.getInstance().getNodes().add(new TNode(id, lon, lat));
         }
-        }catch(Exception e){
-            e.getMessage();
-        }
+    } catch(
+    Exception ex)
+    {
+        System.out.println(ex.getMessage());
     }
 }
+}
+
+

@@ -1,6 +1,7 @@
 package core;
 
 import cache.CacheHandler;
+import test.DomTest;
 import test.MapTest;
 
 /**
@@ -23,5 +24,6 @@ public class Tester {
         up.setCache(new CacheHandler());
 
         MapTest.basicTest();
+        DomTest.printNodes();
     }
 }
