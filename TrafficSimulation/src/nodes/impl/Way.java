@@ -6,17 +6,17 @@ import java.util.ArrayList;
  * Created by gigaw on 2/17/2017.
  */
 public class Way {
-    int id = 0;
+    long id = 0;
     ArrayList<Integer> refs = new ArrayList<>();
 
-    public Way(int id, ArrayList<Integer> refs) {
+    public Way(long id, ArrayList<Integer> refs) {
         this.id = id;
         for (int i = 0; i < refs.size(); i++) {
             this.refs.add(refs.get(i));
         }
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -30,5 +30,10 @@ public class Way {
 
     public void setRefs(ArrayList<Integer> refs) {
         this.refs = refs;
+    }
+
+    @Override
+    public String toString() {
+        return "Way: id=" + id;
     }
 }

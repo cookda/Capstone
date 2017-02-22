@@ -42,13 +42,13 @@ public class SortData {
         for (int temp = 0; temp < nodes.getLength(); temp++) {
             Node nNode = nodes.item(temp);
             NamedNodeMap curNode = nNode.getAttributes();
-            int id = 0;
+            long id = 0;
             double lat = 0;
             double lon = 0;
             for (int i = 0; i < curNode.getLength(); i++) {
                 String nodeName = curNode.item(i).getNodeName();
                 if (nodeName.equals("id")) {
-                    id = Integer.parseInt(curNode.item(i).getNodeValue());
+                    id = Long.parseLong(curNode.item(i).getNodeValue());
                 }
                 if (nodeName.equals("lat")) {
                     lat = Double.parseDouble(curNode.item(i).getNodeValue());
@@ -64,18 +64,21 @@ public class SortData {
     public void readWays() {
         NodeList wayNodes = doc.getElementsByTagName("way");
         for (int i = 0; i < wayNodes.getLength(); i++) {
-            int id = 0;
+            long id = 0;
             ArrayList<Integer> refs = new ArrayList<>();
             Node wayNode = wayNodes.item(i);
             NamedNodeMap curNode = wayNode.getAttributes();
 
             for (int j = 0; j < curNode.getLength(); j++) {
-                String nodeName = curNode.item(i).getNodeName();
-                if (nodeName.equals("id")) {
-                    id = Integer.parseInt(curNode.item(i).getNodeValue());
-                }
-                if (nodeName.equals("ref")) {
-                    refs.add(Integer.parseInt(curNode.item(i).getNodeValue()));
+                if (curNode.item(i) != null) {
+                    String nodeName = curNode.item(i).getNodeName();
+                    if (nodeName.equals("id")) {
+                        System.out.println(curNode.item(i).getNodeValue());
+                        id = Long.parseLong(curNode.item(i).getNodeValue());
+                    }
+                    if (nodeName.equals("ref")) {
+                        refs.add(Integer.parseInt(curNode.item(i).getNodeValue()));
+                    }
                 }
             }
             UserProfile.getInstance().getWayNodes().add(new Way(id, refs));

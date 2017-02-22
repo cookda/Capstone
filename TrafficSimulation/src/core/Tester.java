@@ -18,13 +18,13 @@ public class Tester {
             new UserMap(
                 Constants.BOONE_SMALL_LAT,
                 Constants.BOONE_SMALL_LON,
-                0.005
+                0.002
             )
         );
         up.setCache(new CacheHandler());
 
         MapTest.basicTest();
-        GuiTest.testGUI();
+        DomTest.printNodes();
         //DomTest.printNodes();
     }
 }

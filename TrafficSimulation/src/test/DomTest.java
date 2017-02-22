@@ -11,7 +11,13 @@ public class DomTest {
         SortData sd = new SortData();
         sd.readNodes();
         sd.readWays();
-        //UserProfile.getInstance().getNodes().forEach(System.out::println);
+        UserProfile.getInstance().getNodes().forEach(System.out::println);
         UserProfile.getInstance().getWayNodes().forEach(System.out::println);
+    }
+
+    public static void getNodes() {
+        SortData sd = new SortData();
+        sd.readNodes();
+        sd.readWays();
     }
 }

@@ -4,11 +4,11 @@ package nodes.impl;
  * Created by gigaw on 2/13/2017.
  */
 public class TNode {
-    private int id;
+    private long id;
     private double lon;
     private double lat;
 
-    public TNode(int id, double lon, double lat) {
+    public TNode(long id, double lon, double lat) {
         this.id = id;
         this.lon = lon;
         this.lat = lat;
@@ -30,11 +30,11 @@ public class TNode {
         this.lat = lat;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
