@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by gigaw on 2/10/2017.
@@ -65,23 +66,51 @@ public class SortData {
         NodeList wayNodes = doc.getElementsByTagName("way");
         for (int i = 0; i < wayNodes.getLength(); i++) {
             long id = 0;
-            ArrayList<Integer> refs = new ArrayList<>();
+            ArrayList<Long> refs = new ArrayList<>();
+            String name = "Unnamed";
             Node wayNode = wayNodes.item(i);
             NamedNodeMap curNode = wayNode.getAttributes();
 
-            for (int j = 0; j < curNode.getLength(); j++) {
-                if (curNode.item(i) != null) {
-                    String nodeName = curNode.item(i).getNodeName();
+            if (isRoad(wayNode.getChildNodes())) {
+                for (int j = 0; j < curNode.getLength(); j++) {
+                    Node innerNode = curNode.item(j);
+                    String nodeName = innerNode.getNodeName();
                     if (nodeName.equals("id")) {
-                        System.out.println(curNode.item(i).getNodeValue());
-                        id = Long.parseLong(curNode.item(i).getNodeValue());
+                        id = Long.parseLong(innerNode.getNodeValue());
                     }
-                    if (nodeName.equals("ref")) {
-                        refs.add(Integer.parseInt(curNode.item(i).getNodeValue()));
+                }
+                for (int j = 0; j < wayNode.getChildNodes().getLength(); j++) {
+                    NamedNodeMap nodeAttr = wayNode.getChildNodes().item(j).getAttributes();
+                    if (nodeAttr != null) {
+                        for (int t = 0; t < nodeAttr.getLength(); t++) {
+                            Node innerNode = nodeAttr.item(t);
+                            String nodeName = innerNode.getNodeName();
+                            if (nodeName.equals("ref")) {
+                                refs.add(Long.parseLong(innerNode.getNodeValue()));
+                            } else if (innerNode.getNodeValue().equals("name")) {
+                                name = nodeAttr.item(t + 1).getNodeValue();
+                            }
+                        }
+                    }
+                }
+                UserProfile.getInstance().getWayNodes().add(new Way(name, id, refs));
+            }
+        }
+    }
+
+    private boolean isRoad(NodeList nodeList) {
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            NamedNodeMap attr = nodeList.item(i).getAttributes();
+            if (attr != null) {
+                for (int j = 0; j < attr.getLength(); j++) {
+                    Node innerNode = attr.item(j);
+                    if (innerNode.getNodeName().equals("k") && innerNode.getNodeValue().equals("highway")
+                            && !Arrays.asList(Constants.BAD_WAYS).contains(attr.item(j + 1).getNodeValue())) {
+                        return true;
                     }
                 }
             }
-            UserProfile.getInstance().getWayNodes().add(new Way(id, refs));
         }
+        return false;
     }
 }

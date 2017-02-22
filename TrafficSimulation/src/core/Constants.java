@@ -9,6 +9,8 @@ public class Constants {
     public final static double BOONE_SMALL_LAT = 36.219945;
     public final static double BOONE_SMALL_LON = -81.68615;
 
+    public final static String[] BAD_WAYS = {"footway", "bridleway", "steps", "path", "pedestrian", "service", "cycleway"};
+
 
     public final static String USER_DIR = System.getProperty("user.home") + "/CapstoneData/";
     public final static String IMAGE_DIR = USER_DIR + "img/";
