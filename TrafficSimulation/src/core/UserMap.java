@@ -22,7 +22,7 @@ public class UserMap {
     }
 
     private String generateImageName() {
-        return latitude + "_" + longitude + "_" + zoomLevel + ".png";
+        return latitude + "_" + longitude + "_" + zoomLevel + "_" + radius + ".png";
     }
 
     private String generateDataName() {
@@ -75,5 +75,10 @@ public class UserMap {
 
     public void setDataName(String dataName) {
         this.dataName = dataName;
+    }
+
+    @Override
+    public String toString() {
+        return "Latitude: " + latitude + " - Longitude: " + longitude + " - Radius: " + radius;
     }
 }

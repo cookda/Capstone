@@ -18,20 +18,10 @@ public class CacheHandler {
 
     private static final String CACHE_NAME = "cache.dat";
 
-    private double currentLat;
-    private double currentLong;
-    private double currentRadius;
     private UserMap um;
 
-
-    public CacheHandler() {
-        um = UserProfile.getInstance().getMap();
-        currentLat = um.getLatitude();
-        currentLong = um.getLongitude();
-        currentRadius = um.getRadius();
-    }
-
     public boolean isCached() {
+        um = UserProfile.getInstance().getMap();
         File f = new File(Constants.USER_DIR + CACHE_NAME);
         if (!f.exists()) {
             try {
@@ -47,8 +37,10 @@ public class CacheHandler {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
-                if (Double.parseDouble(data[0]) == currentLat && Double.parseDouble(data[1]) == currentLong
-                        && Double.parseDouble(data[2]) == currentRadius) {
+                if (Double.parseDouble(data[0]) == um.getLatitude() && Double.parseDouble(data[1]) == um.getLongitude()
+                        && Double.parseDouble(data[2]) == um.getRadius()) {
+                    System.out.println(Double.parseDouble(data[0]));
+                    System.out.println(um.getLatitude());
                     return true;
                 }
             }
@@ -81,7 +73,7 @@ public class CacheHandler {
      * @return built string of cache entry
      */
     private String buildCacheEntry() {
-        return currentLat + "," + currentLong + "," + currentRadius + "," + um.getDataName() + "," + um.getImageName();
+        return um.getLatitude() + "," + um.getLongitude() + "," + um.getRadius() + "," + um.getDataName() + "," + um.getImageName();
     }
 
 }

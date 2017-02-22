@@ -64,7 +64,6 @@ public class OSMGrabber {
             BufferedWriter bwr = new BufferedWriter(new FileWriter(new File(dataPath + "/" + um.getDataName())));
             bwr.write(resp.toString());
             bwr.close();
-            System.out.println(resp.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
