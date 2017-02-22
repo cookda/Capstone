@@ -16,10 +16,9 @@ public class Tester {
         UserProfile up = UserProfile.getInstance();
         up.setMap(
             new UserMap(
-                Constants.BOONE_LAT,
-                Constants.BOONE_LONG,
-                0.03,
-                15
+                Constants.BOONE_SMALL_LAT,
+                Constants.BOONE_SMALL_LON,
+                0.005
             )
         );
         up.setCache(new CacheHandler());

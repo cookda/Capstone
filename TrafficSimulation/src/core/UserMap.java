@@ -12,11 +12,11 @@ public class UserMap {
     private String imageName;
     private String dataName;
 
-    public UserMap(double latitude, double longitude, double radius, int zoomLevel) {
+    public UserMap(double latitude, double longitude, double radius) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.radius = radius;
-        this.zoomLevel = zoomLevel;
+        this.zoomLevel = generateZoom();
         imageName = generateImageName();
         dataName = generateDataName();
     }
@@ -27,6 +27,10 @@ public class UserMap {
 
     private String generateDataName() {
         return latitude + "_" + longitude + "_" + radius + ".xml";
+    }
+
+    private int generateZoom() {
+        return 17;
     }
 
     public int getZoomLevel() {

@@ -32,15 +32,15 @@ public class ConfigPanel extends JPanel {
 
         userProfile = UserProfile.getInstance();
 
-        latField = new JTextField("" + Constants.BOONE_LAT);
+        latField = new JTextField("" + userProfile.getMap().getLatitude());
         latField.setColumns(10);
         latLabel = new JLabel("Latitude: ");
 
-        lonField = new JTextField("" + Constants.BOONE_LONG);
+        lonField = new JTextField("" + userProfile.getMap().getLongitude());
         lonField.setColumns(10);
         lonLabel = new JLabel("Longitude: ");
 
-        radField = new JTextField("0.03");
+        radField = new JTextField("" + userProfile.getMap().getRadius());
         radField.setColumns(10);
         radLabel = new JLabel("Radius: ");
 
@@ -50,8 +50,7 @@ public class ConfigPanel extends JPanel {
                 new UserMap(
                         Double.parseDouble(latField.getText()),
                         Double.parseDouble(lonField.getText()),
-                        Double.parseDouble(radField.getText()),
-                        15
+                        Double.parseDouble(radField.getText())
                 ));
             System.out.println(userProfile.getMap());
             Thread t = new Thread(MapTest::basicTest);
