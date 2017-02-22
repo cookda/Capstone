@@ -15,7 +15,12 @@ public class UserProfile {
     private UserMap map;
     private CacheHandler cache;
     private ArrayList nodes;
+    private ArrayList wayNodes;
 
+
+    public ArrayList getWayNodes(){
+        return wayNodes;
+    }
 
     public ArrayList getNodes() {
         return nodes;
@@ -23,6 +28,7 @@ public class UserProfile {
 
     protected UserProfile() {
         nodes = new ArrayList<>();
+        wayNodes = new ArrayList<>();
     }
 
     public static UserProfile getInstance() {
