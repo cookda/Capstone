@@ -23,8 +23,9 @@ public class Tester {
         );
         up.setCache(new CacheHandler());
 
-        MapTest.basicTest();
-        DomTest.printNodes();
+        //MapTest.basicTest();
         //DomTest.printNodes();
+        //DomTest.printNodes();
+        GuiTest.visTest();
     }
 }
