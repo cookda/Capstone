@@ -1,4 +1,4 @@
-package ParseData;
+package parser;
 
 import core.Constants;
 import core.UserProfile;
@@ -11,10 +11,6 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -58,7 +54,9 @@ public class SortData {
                     lon = Double.parseDouble(curNode.item(i).getNodeValue());
                 }
             }
-            UserProfile.getInstance().getNodes().add(new TNode(id, lon, lat));
+            TNode newNode = new TNode(id, lon, lat);
+            UserProfile.getInstance().getNodes().add(newNode);
+            UserProfile.getInstance().getNodeMap().put(id, newNode);
         }
     }
 
@@ -93,7 +91,9 @@ public class SortData {
                         }
                     }
                 }
-                UserProfile.getInstance().getWayNodes().add(new Way(name, id, refs));
+                Way newWay = new Way(name, id, refs);
+                UserProfile.getInstance().getWays().add(newWay);
+                UserProfile.getInstance().getWayMap().put(id, newWay);
             }
         }
     }

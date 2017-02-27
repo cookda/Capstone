@@ -1,6 +1,6 @@
 package test;
 
-import ParseData.SortData;
+import parser.SortData;
 import core.UserProfile;
 
 /**
@@ -12,7 +12,7 @@ public class DomTest {
         sd.readNodes();
         sd.readWays();
         UserProfile.getInstance().getNodes().forEach(System.out::println);
-        UserProfile.getInstance().getWayNodes().forEach(System.out::println);
+        UserProfile.getInstance().getWays().forEach(System.out::println);
     }
 
     public static void getNodes() {
