@@ -14,6 +14,7 @@ import org.jxmapviewer.viewer.*;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,6 +38,11 @@ public class GuiTest {
 
         viewer.setTileFactory(tileFactory);
         tileFactory.setThreadPoolSize(4);
+
+        File cacheDir = new File(System.getProperty("user.home") + File.separator + ".jxmapviewer2");
+        LocalResponseCache.installResponseCache(info.getBaseURL(), cacheDir, false);
+
+
         GeoPosition gp = new GeoPosition(Constants.BOONE_LAT, Constants.BOONE_LONG);
 
         viewer.setZoom(7);
