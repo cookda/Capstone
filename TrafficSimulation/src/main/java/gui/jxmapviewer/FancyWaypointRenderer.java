@@ -15,12 +15,14 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import core.Constants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jxmapviewer.JXMapViewer;
@@ -46,11 +48,9 @@ public class FancyWaypointRenderer implements WaypointRenderer<MyWaypoint>
      */
     public FancyWaypointRenderer()
     {
-        URL resource = getClass().getResource("waypoint_white.png");
-
         try
         {
-            origImage = ImageIO.read(resource);
+            origImage = ImageIO.read(new File(Constants.IMAGE_DIR + "/waypoint_white.png"));
         }
         catch (Exception ex)
         {

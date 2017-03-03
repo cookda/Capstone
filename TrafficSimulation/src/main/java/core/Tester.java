@@ -23,6 +23,7 @@ public class Tester {
         );
         up.setCache(new CacheHandler());
 
+        DomTest.getNodes();
         GuiTest.testJX();
     }
 }

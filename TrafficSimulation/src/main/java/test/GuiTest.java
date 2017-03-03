@@ -1,10 +1,11 @@
 package test;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import core.Constants;
+import core.UserProfile;
 import gui.MainFrame;
+import gui.jxmapviewer.FancyWaypointRenderer;
+import gui.jxmapviewer.MyWaypoint;
 import org.jxmapviewer.JXMapViewer;
-import org.jxmapviewer.OSMTileFactoryInfo;
 import org.jxmapviewer.VirtualEarthTileFactoryInfo;
 import org.jxmapviewer.input.CenterMapListener;
 import org.jxmapviewer.input.PanKeyListener;
@@ -14,6 +15,7 @@ import org.jxmapviewer.viewer.*;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
+import java.awt.*;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
@@ -57,6 +59,19 @@ public class GuiTest {
         viewer.addMouseWheelListener(new ZoomMouseWheelListenerCursor(viewer));
 
         viewer.addKeyListener(new PanKeyListener(viewer));
+
+        Set<MyWaypoint> pointSet = new HashSet<MyWaypoint>();
+
+        UserProfile.getInstance().getNodeMap().values().forEach(f -> {
+            int i = 0;
+            pointSet.add(new MyWaypoint(String.valueOf(i++), Color.WHITE, new GeoPosition(f.getLat(), f.getLon())));
+        });
+
+        WaypointPainter<MyWaypoint> waypointPainter = new WaypointPainter<MyWaypoint>();
+        waypointPainter.setWaypoints(pointSet);
+        waypointPainter.setRenderer(new FancyWaypointRenderer());
+
+        viewer.setOverlayPainter(waypointPainter);
 
         JFrame frame = new JFrame("Viewer");
         frame.getContentPane().add(viewer);
