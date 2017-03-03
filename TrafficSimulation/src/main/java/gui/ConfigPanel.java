@@ -1,9 +1,7 @@
 package gui;
 
-import core.Constants;
 import core.UserMap;
 import core.UserProfile;
-import test.MapTest;
 
 import javax.swing.*;
 import java.awt.*;

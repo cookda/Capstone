@@ -1,4 +1,4 @@
-package test;
+package gui;
 
 import api.OSMGrabber;
 import cache.CacheHandler;

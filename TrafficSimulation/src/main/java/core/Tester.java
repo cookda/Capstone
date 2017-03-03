@@ -1,9 +1,8 @@
 package core;
 
 import cache.CacheHandler;
-import test.DomTest;
-import test.GuiTest;
-import test.MapTest;
+import gui.DomTest;
+import gui.MapViewerTest;
 
 /**
  * Created by aron on 1/25/17.
@@ -24,6 +23,6 @@ public class Tester {
         up.setCache(new CacheHandler());
 
         DomTest.getNodes();
-        GuiTest.testJX();
+        MapViewerTest.testJX();
     }
 }
