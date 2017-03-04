@@ -1,4 +1,4 @@
-package gui;
+package tests;
 
 import api.OSMGrabber;
 import cache.CacheHandler;
@@ -19,7 +19,6 @@ public class MapTest {
         CacheHandler ch = UserProfile.getInstance().getCache();
         if (!ch.isCached()) {
             test.getArea();
-            test.getImage();
             ch.cacheArea();
         } else {
             System.out.println("Area cached");

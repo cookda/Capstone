@@ -2,6 +2,7 @@ package gui;
 
 import core.UserMap;
 import core.UserProfile;
+import tests.MapTest;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package gui;
+package tests;
 
 import parser.SortData;
 import core.UserProfile;
