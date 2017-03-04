@@ -1,14 +1,48 @@
 package nodes.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 /**
  * Created by gigaw on 2/17/2017.
  */
 public class Way {
 
+    public enum WayType {
+        MOTORWAY("motorway", 70),
+        TRUNK("trunk", 65),
+        PRIMARY("primary", 55),
+        SECONDARY("secondary", 55),
+        TERTIARY("tertiary", 35),
+        UNCLASSIFIED("unclassified", 35),
+        RESIDENTIAL("residential", 25),
+        SERVICE("service", 15);
+
+        private String name;
+        private int speed;
+
+        WayType(String name, int speed) {
+            this.name = name;
+            this.speed = speed;
+        }
+
+        public Stream<String> wayNames() {
+            return Arrays.stream(WayType.values()).map(WayType::name);
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getSpeed() {
+            return speed;
+        }
+    }
+
     private String name;
-    long id = 0;
+    private long id = 0;
+    private WayType roadType;
     ArrayList<Long> refs = new ArrayList<>();
     ArrayList<TNode> nodes = new ArrayList<>();
 
