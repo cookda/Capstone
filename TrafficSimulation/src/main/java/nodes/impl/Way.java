@@ -10,6 +10,7 @@ public class Way {
     private String name;
     long id = 0;
     ArrayList<Long> refs = new ArrayList<>();
+    ArrayList<TNode> nodes = new ArrayList<>();
 
     public Way(String name, long id, ArrayList<Long> refs) {
         this.name = name;
@@ -41,6 +42,14 @@ public class Way {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ArrayList<TNode> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(ArrayList<TNode> nodes) {
+        this.nodes = nodes;
     }
 
     @Override

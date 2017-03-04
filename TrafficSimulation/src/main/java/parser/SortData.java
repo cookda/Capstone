@@ -77,6 +77,7 @@ public class SortData {
                         id = Long.parseLong(innerNode.getNodeValue());
                     }
                 }
+                ArrayList<TNode> nodesForWay = new ArrayList<>();
                 for (int j = 0; j < wayNode.getChildNodes().getLength(); j++) {
                     NamedNodeMap nodeAttr = wayNode.getChildNodes().item(j).getAttributes();
                     if (nodeAttr != null) {
@@ -85,6 +86,7 @@ public class SortData {
                             String nodeName = innerNode.getNodeName();
                             if (nodeName.equals("ref")) {
                                 refs.add(Long.parseLong(innerNode.getNodeValue()));
+                                nodesForWay.add(UserProfile.getInstance().getNodeMap().get(Long.parseLong(innerNode.getNodeValue())));
                             } else if (innerNode.getNodeValue().equals("name")) {
                                 name = nodeAttr.item(t + 1).getNodeValue();
                             }
@@ -92,6 +94,7 @@ public class SortData {
                     }
                 }
                 Way newWay = new Way(name, id, refs);
+                newWay.setNodes(nodesForWay);
                 UserProfile.getInstance().getWays().add(newWay);
                 UserProfile.getInstance().getWayMap().put(id, newWay);
             }
