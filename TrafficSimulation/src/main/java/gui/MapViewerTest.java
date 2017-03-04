@@ -68,9 +68,15 @@ public class MapViewerTest {
 
         Set<MyWaypoint> pointSet = new HashSet<MyWaypoint>();
 
-        UserProfile.getInstance().getNodeMap().values().forEach(f -> {
-            int i = 0;
-            pointSet.add(new MyWaypoint(String.valueOf(i++), Color.WHITE, new GeoPosition(f.getLat(), f.getLon())));
+        UserProfile.getInstance().getWayMap().values().forEach(f -> {
+            UserProfile.getInstance().getNodeMap().forEach((id, node) -> {
+                f.getRefs().forEach(ref -> {
+                    if (ref.equals(id)) {
+                        pointSet.add(new MyWaypoint("A", Color.WHITE, new GeoPosition(node.getLat(), node.getLon())));
+                    }
+                });
+            });
+            //pointSet.add(new MyWaypoint("A", Color.WHITE, new GeoPosition(f.getLat(), f.getLon())));
         });
 
         WaypointPainter<MyWaypoint> waypointPainter = new WaypointPainter<MyWaypoint>();
