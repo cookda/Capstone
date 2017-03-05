@@ -2,6 +2,7 @@ package gui;
 
 import core.Constants;
 import core.UserProfile;
+import gui.jxmapviewer.AgentPainter;
 import gui.jxmapviewer.FancyWaypointRenderer;
 import gui.jxmapviewer.MyWaypoint;
 import gui.jxmapviewer.WayPainter;
@@ -15,6 +16,8 @@ import org.jxmapviewer.input.PanMouseInputListener;
 import org.jxmapviewer.input.ZoomMouseWheelListenerCursor;
 import org.jxmapviewer.painter.CompoundPainter;
 import org.jxmapviewer.viewer.*;
+import sim.Agent;
+import sim.AgentPool;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -54,7 +57,7 @@ public class MapViewer {
 
         GeoPosition gp = new GeoPosition(Constants.BOONE_LAT, Constants.BOONE_LONG);
 
-        mapViewer.setZoom(12);
+        mapViewer.setZoom(5);
         mapViewer.setAddressLocation(gp);
 
         MouseInputListener mia = new PanMouseInputListener(mapViewer);
@@ -115,10 +118,16 @@ public class MapViewer {
         waypointPainter.setWaypoints(pointSet);
         waypointPainter.setRenderer(new FancyWaypointRenderer());
 
+        //Add a test agent to the AgentPool
+        AgentPool.getInstance().addAgent(new Agent(Constants.BOONE_SMALL_LAT, Constants.BOONE_SMALL_LON));
+        //Create/set up the agent painter
+        AgentPainter agentPainter = new AgentPainter(mapViewer);
+
 
         compoundPainter = new CompoundPainter<>();
         //compoundPainter.addPainter(waypointPainter);
-        compoundPainter.addPainter(wayPainter);
+        //compoundPainter.addPainter(wayPainter);
+        compoundPainter.addPainter(agentPainter);
 
         mapViewer.setOverlayPainter(compoundPainter);
 

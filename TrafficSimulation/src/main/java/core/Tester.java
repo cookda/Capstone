@@ -18,7 +18,7 @@ public class Tester {
             new UserMap(
                 Constants.BOONE_SMALL_LAT,
                 Constants.BOONE_SMALL_LON,
-                0.002
+                0.010
             )
         );
         up.setCache(new CacheHandler());
