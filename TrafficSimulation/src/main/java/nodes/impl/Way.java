@@ -1,5 +1,6 @@
 package nodes.impl;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -9,26 +10,40 @@ import java.util.stream.Stream;
  */
 public class Way {
 
+    //Retrieved from http://wiki.openstreetmap.org/wiki/Key:highway
+    private final static Color motorwayColor = new Color(0xEA90A0);
+    private final static Color trunkColor = new Color(0xFBB199);
+    private final static Color primaryColor = new Color(0xFED6A1);
+    private final static Color secondaryColor = new Color(0xF6FABB);
+    private final static Color tertiaryColor = new Color(0xFFFFFF);
+    private final static Color unclassifiedColor = tertiaryColor;
+    private final static Color residentialColor = tertiaryColor;
+    private final static Color serviceColor = tertiaryColor;
+    private final static Color noColor = new Color(0x000000); //If we ever see this, we know something is wrong.
+
+
     public enum WayType {
-        MOTORWAY("motorway", 70),
-        TRUNK("trunk", 65),
-        PRIMARY("primary", 55),
-        SECONDARY("secondary", 55),
-        TERTIARY("tertiary", 35),
-        UNCLASSIFIED("unclassified", 35),
-        RESIDENTIAL("residential", 25),
-        SERVICE("service", 15);
+        MOTORWAY("motorway", 70, motorwayColor),
+        TRUNK("trunk", 65, trunkColor),
+        PRIMARY("primary", 55, primaryColor),
+        SECONDARY("secondary", 55, secondaryColor),
+        TERTIARY("tertiary", 35, tertiaryColor),
+        UNCLASSIFIED("unclassified", 35, unclassifiedColor),
+        RESIDENTIAL("residential", 25, residentialColor),
+        SERVICE("service", 15, serviceColor),
+        NONE("none", 0, noColor);
 
         private String name;
         private int speed;
+        private Color color;
 
-        WayType(String name, int speed) {
+        WayType(String name, int speed, Color color) {
             this.name = name;
             this.speed = speed;
         }
 
-        public Stream<String> wayNames() {
-            return Arrays.stream(WayType.values()).map(WayType::name);
+        public static Stream<WayType> wayStream() {
+            return Arrays.stream(WayType.values());
         }
 
         public String getName() {
@@ -38,20 +53,23 @@ public class Way {
         public int getSpeed() {
             return speed;
         }
+
+        public Color getColor() {
+            return color;
+        }
     }
 
     private String name;
     private long id = 0;
     private WayType roadType;
-    ArrayList<Long> refs = new ArrayList<>();
-    ArrayList<TNode> nodes = new ArrayList<>();
+    private ArrayList<Long> refs;
+    private ArrayList<TNode> nodes = new ArrayList<>();
 
-    public Way(String name, long id, ArrayList<Long> refs) {
+    public Way(String name, long id, ArrayList<Long> refs, WayType type) {
         this.name = name;
         this.id = id;
-        for (int i = 0; i < refs.size(); i++) {
-            this.refs.add(refs.get(i));
-        }
+        roadType = type;
+        this.refs = refs;
     }
 
     public long getId() {
@@ -84,6 +102,10 @@ public class Way {
 
     public void setNodes(ArrayList<TNode> nodes) {
         this.nodes = nodes;
+    }
+
+    public WayType getRoadType() {
+        return roadType;
     }
 
     @Override

@@ -39,6 +39,10 @@ public class UserProfile {
         nodeMap = new HashMap<>();
     }
 
+    /**
+     * Global access point for UserProfile singleton
+     * @return instance of UserProfile
+     */
     public static UserProfile getInstance() {
         if (instance == null) {
             instance = new UserProfile();
@@ -46,6 +50,9 @@ public class UserProfile {
         return instance;
     }
 
+    /**
+     * @return - the UserMap currently being used which contains information about the current OSM area we are operating on
+     */
     public UserMap getMap() {
         return map;
     }
