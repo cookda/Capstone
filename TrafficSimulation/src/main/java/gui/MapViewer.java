@@ -61,7 +61,7 @@ public class MapViewer {
         LocalResponseCache.installResponseCache(tileFactoryInfo.getBaseURL(), cacheDir, false);
 
 
-        GeoPosition gp = new GeoPosition(Constants.BOONE_LAT, Constants.BOONE_LONG);
+        GeoPosition gp = new GeoPosition(UserProfile.getInstance().getMap().getLatitude(), UserProfile.getInstance().getMap().getLongitude());
 
         mapViewer.setZoom(5);
         mapViewer.setAddressLocation(gp);
@@ -125,9 +125,10 @@ public class MapViewer {
         waypointPainter.setRenderer(new FancyWaypointRenderer());
 
         //Add a test agent to the AgentPool
-        AgentPool.getInstance().addAgent(new Agent(Constants.BOONE_SMALL_LAT, Constants.BOONE_SMALL_LON));
+        //AgentPool.getInstance().addAgent(new Agent(Constants.BOONE_SMALL_LAT, Constants.BOONE_SMALL_LON));
         //Create/set up the agent painter
-        AgentPainter agentPainter = new AgentPainter(mapViewer);
+        //`:w
+        // AgentPainter agentPainter = new AgentPainter(mapViewer);
 
 
         compoundPainter = new CompoundPainter<>();
