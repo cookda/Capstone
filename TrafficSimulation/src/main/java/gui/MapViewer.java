@@ -47,6 +47,7 @@ public class MapViewer {
 
     private boolean waysEnabled;
     private boolean nodesEnabled;
+    private boolean isMapView = true;
 
     public MapViewer() {
 
@@ -182,7 +183,22 @@ public class MapViewer {
         this.nodesEnabled = nodesEnabled;
     }
 
-    public void repaint() {
+    public void setMapView(boolean isMapView) {
+        if (isMapView) {
+            tileFactoryType = VirtualEarthTileFactoryInfo.MAP;
+        } else {
+            tileFactoryType = VirtualEarthTileFactoryInfo.SATELLITE;
+        }
+        this.isMapView = isMapView;
+    }
 
+    public boolean isMapView() {
+        return isMapView;
+    }
+
+    public void reloadTileFactory() {
+        tileFactoryInfo = new VirtualEarthTileFactoryInfo(tileFactoryType);
+        tileFactory = new DefaultTileFactory(tileFactoryInfo);
+        mapViewer.setTileFactory(tileFactory);
     }
 }

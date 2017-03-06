@@ -43,6 +43,19 @@ public class ControlPanel extends JPanel {
             mapViewer.getMapViewer().repaint();
         });
 
+        JButton viewSwitcher = new JButton("Switch to Satellite");
+        viewSwitcher.addActionListener(event -> {
+            if (mapViewer.isMapView()) {
+                mapViewer.setMapView(false);
+                viewSwitcher.setText("Switch to Map");
+            } else {
+                mapViewer.setMapView(true);
+                viewSwitcher.setText("Switch to Satellite");
+            }
+            mapViewer.reloadTileFactory();
+            mapViewer.getMapViewer().repaint();
+        });
+
         GroupLayout groupLayout = new GroupLayout(this);
         groupLayout.setHorizontalGroup(
                 groupLayout.createParallelGroup(Alignment.LEADING)
@@ -51,6 +64,8 @@ public class ControlPanel extends JPanel {
                                 .addComponent(wayButton)
                                 .addGap(18)
                                 .addComponent(nodeButton)
+                                .addGap(18)
+                                .addComponent(viewSwitcher)
                                 .addContainerGap(195, Short.MAX_VALUE))
         );
         groupLayout.setVerticalGroup(
@@ -59,7 +74,8 @@ public class ControlPanel extends JPanel {
                                 .addContainerGap()
                                 .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
                                         .addComponent(wayButton)
-                                        .addComponent(nodeButton))
+                                        .addComponent(nodeButton)
+                                        .addComponent(viewSwitcher))
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         setLayout(groupLayout);
