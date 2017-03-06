@@ -42,6 +42,12 @@ public class MapViewer {
     private DefaultTileFactory tileFactory;
     private CompoundPainter<JXMapViewer> compoundPainter;
 
+    private WaypointPainter<MyWaypoint> waypointPainter;
+    private WayPainter wayPainter;
+
+    private boolean waysEnabled;
+    private boolean nodesEnabled;
+
     public MapViewer() {
 
         mapViewer = new JXMapViewer();
@@ -93,7 +99,7 @@ public class MapViewer {
         });
 
 
-        WayPainter wayPainter = new WayPainter(mapViewer);
+        wayPainter = new WayPainter(mapViewer);
 
         //This is an ArrayList of a Pair consisting of an ArrayList of Pairs and a Color for the way
         //In order to retain your sanity, I suggest not attempting to understand it unless required
@@ -114,7 +120,7 @@ public class MapViewer {
         });
         wayPainter.setWayLines(nodePairLists);
 
-        WaypointPainter<MyWaypoint> waypointPainter = new WaypointPainter<>();
+        waypointPainter = new WaypointPainter<>();
         waypointPainter.setWaypoints(pointSet);
         waypointPainter.setRenderer(new FancyWaypointRenderer());
 
@@ -125,23 +131,57 @@ public class MapViewer {
 
 
         compoundPainter = new CompoundPainter<>();
-        //compoundPainter.addPainter(waypointPainter);
-        //compoundPainter.addPainter(wayPainter);
-        compoundPainter.addPainter(agentPainter);
+        //compoundPainter.addPainter(agentPainter);
 
         mapViewer.setOverlayPainter(compoundPainter);
 
 
-        JFrame frame = new JFrame("Traffic Simulator - Wayne Gore & Dalton Cook");
+        /*
+        JFrame frame = new JFrame("Traffic Simulator");
         frame.getContentPane().add(mapViewer);
         frame.setSize(800, 800);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
         mapViewer.repaint();
+        */
     }
 
     private GeoPosition getMouseGeoPosition(Point p) {
         Rectangle viewportBounds = mapViewer.getViewportBounds();
         return tileFactory.pixelToGeo(new Point(viewportBounds.x + p.x, viewportBounds.y + p.y), mapViewer.getZoom());
+    }
+
+    public JXMapViewer getMapViewer() {
+        return mapViewer;
+    }
+
+    public boolean isWaysEnabled() {
+        return waysEnabled;
+    }
+
+    public void setWaysEnabled(boolean waysEnabled) {
+        if (waysEnabled) {
+            compoundPainter.addPainter(wayPainter);
+        } else {
+            compoundPainter.removePainter(wayPainter);
+        }
+        this.waysEnabled = waysEnabled;
+    }
+
+    public boolean isNodesEnabled() {
+        return nodesEnabled;
+    }
+
+    public void setNodesEnabled(boolean nodesEnabled) {
+        if (nodesEnabled) {
+            compoundPainter.addPainter(waypointPainter);
+        } else {
+            compoundPainter.removePainter(waypointPainter);
+        }
+        this.nodesEnabled = nodesEnabled;
+    }
+
+    public void repaint() {
+
     }
 }

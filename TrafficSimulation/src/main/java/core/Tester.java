@@ -1,6 +1,7 @@
 package core;
 
 import cache.CacheHandler;
+import gui.SimFrame;
 import tests.DomTest;
 import tests.MapTest;
 import tests.MapViewerTest;
@@ -18,13 +19,14 @@ public class Tester {
             new UserMap(
                 Constants.BOONE_SMALL_LAT,
                 Constants.BOONE_SMALL_LON,
-                0.010
+                0.002
             )
         );
         up.setCache(new CacheHandler());
 
         MapTest.basicTest();
         DomTest.getNodes();
-        MapViewerTest.testJX();
+        SimFrame sf = new SimFrame();
+        //MapViewerTest.testJX();
     }
 }

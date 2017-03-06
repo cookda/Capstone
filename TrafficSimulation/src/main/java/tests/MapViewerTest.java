@@ -4,7 +4,6 @@ import api.OSMGrabber;
 import cache.CacheHandler;
 import core.Constants;
 import core.UserProfile;
-import gui.MainFrame;
 import gui.MapViewer;
 import gui.jxmapviewer.FancyWaypointRenderer;
 import gui.jxmapviewer.MyWaypoint;
@@ -34,13 +33,6 @@ import core.UserProfile;
  */
 public class MapViewerTest {
 
-    public static void testGUI() {
-        try {
-            MainFrame mf = new MainFrame();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     public static void testJX() {
         new MapViewer();
@@ -71,10 +63,6 @@ public class MapViewerTest {
         } else {
             System.out.println("Area cached");
         }
-    }
-
-    public static void guiTest() throws IOException {
-        MainFrame mf = new MainFrame();
     }
 
 }

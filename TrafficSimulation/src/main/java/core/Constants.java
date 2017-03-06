@@ -10,6 +10,10 @@ public class Constants {
     public final static double BOONE_SMALL_LON = -81.68615;
     public final static double CHARLOTTE_LAT = 35.220784;
     public final static double CHARLOTTE_LON = -80.840492;
+    public final static double BRIDGEWATER_LAT = 41.9904;
+    public final static double BRIDGEWATER_LON = -70.9751;
+    public final static double BOSTON_LAT = 42.3601;
+    public final static double BOSTON_LON = -71.0589;
 
     public final static String[] BAD_WAYS = {"footway", "bridleway", "steps", "path", "pedestrian", "service", "cycleway"};
 
