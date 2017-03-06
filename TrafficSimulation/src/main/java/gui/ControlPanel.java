@@ -19,26 +19,26 @@ public class ControlPanel extends JPanel {
     public ControlPanel(MapViewer mapViewer) {
         this.mapViewer = mapViewer;
 
-        JButton wayButton = new JButton("Enable ways");
+        JButton wayButton = new JButton("Show ways");
         wayButton.addActionListener(event -> {
             if (mapViewer.isWaysEnabled()) {
                 mapViewer.setWaysEnabled(false);
-                wayButton.setText("Enable ways");
+                wayButton.setText("Show ways");
             } else {
                 mapViewer.setWaysEnabled(true);
-                wayButton.setText("Disable ways");
+                wayButton.setText("Hide ways");
             }
             mapViewer.getMapViewer().repaint();
         });
 
-        JButton nodeButton = new JButton("Enable nodes");
+        JButton nodeButton = new JButton("Show nodes");
         nodeButton.addActionListener(event -> {
             if (mapViewer.isNodesEnabled()) {
                 mapViewer.setNodesEnabled(false);
-                nodeButton.setText("Enable nodes");
+                nodeButton.setText("Show nodes");
             } else {
                 mapViewer.setNodesEnabled(true);
-                nodeButton.setText("Disable nodes");
+                nodeButton.setText("Hide nodes");
             }
             mapViewer.getMapViewer().repaint();
         });
