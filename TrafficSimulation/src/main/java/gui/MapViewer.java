@@ -126,14 +126,12 @@ public class MapViewer {
         waypointPainter.setRenderer(new FancyWaypointRenderer());
 
         //Add a test agent to the AgentPool
-        //AgentPool.getInstance().addAgent(new Agent(Constants.BOONE_SMALL_LAT, Constants.BOONE_SMALL_LON));
         //Create/set up the agent painter
-        //`:w
-        // AgentPainter agentPainter = new AgentPainter(mapViewer);
+        AgentPainter agentPainter = new AgentPainter(mapViewer);
 
 
         compoundPainter = new CompoundPainter<>();
-        //compoundPainter.addPainter(agentPainter);
+        compoundPainter.addPainter(agentPainter);
 
         mapViewer.setOverlayPainter(compoundPainter);
 

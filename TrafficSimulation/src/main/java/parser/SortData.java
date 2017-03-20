@@ -64,7 +64,7 @@ public class SortData {
                 }
             }
             TNode newNode = new TNode(id, lon, lat);
-            UserProfile.getInstance().getNodes().add(newNode);
+//            UserProfile.getInstance().getNodes().add(newNode);
             UserProfile.getInstance().getNodeMap().put(id, newNode);
         }
     }
@@ -125,7 +125,7 @@ public class SortData {
 
                 Way newWay = new Way(name, id, refs, type);
                 newWay.setNodes(nodesForWay);
-                UserProfile.getInstance().getWays().add(newWay);
+//                UserProfile.getInstance().getWays().add(newWay);
                 UserProfile.getInstance().getWayMap().put(id, newWay);
             }
         }

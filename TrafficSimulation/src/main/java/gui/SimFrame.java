@@ -9,6 +9,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 public class SimFrame extends JFrame {
 
     private JPanel contentPane;
+    private MapViewer mv;
 
 
     public SimFrame() {
@@ -18,7 +19,7 @@ public class SimFrame extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
 
-        MapViewer mv = new MapViewer();
+        mv = new MapViewer();
 
         JPanel panel_1 = new ControlPanel(mv);
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -38,6 +39,10 @@ public class SimFrame extends JFrame {
         );
         contentPane.setLayout(gl_contentPane);
         setVisible(true);
+    }
+
+    public MapViewer getMapViewer() {
+        return mv;
     }
 
 }

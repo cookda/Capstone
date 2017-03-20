@@ -28,36 +28,33 @@ public class AgentPainter implements Painter<JXMapViewer> {
         this.viewer = viewer;
         pool = AgentPool.getInstance();
         try {
-            carImage = ImageIO.read(new File(Constants.IMAGE_DIR + "/car.png"));
+            carImage = ImageIO.read(new File(Constants.IMAGE_DIR + "/agent.png"));
         } catch (Exception e) {
             System.out.println("Couldn't get the image for the car agents");
             System.out.println(e.getMessage());
         }
     }
 
-    @Override
-    public void paint(Graphics2D g, JXMapViewer jxMapViewer, int width, int height) {
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.translate(-viewer.getViewportBounds().x, -viewer.getViewportBounds().y); //Evil viewport hacks
-        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-
-        //Creating a new Rescale
-        RescaleOp transparentFilter = new RescaleOp(
-                new float[] {0.5f, 0.5f, 0.5f, 1f}, //Last number sets opacity of the car
-                new float[4],
-                null
-        );
+    @Override public void paint(Graphics2D g, JXMapViewer jxMapViewer, int width, int height) {
 
         List<Agent> agents  = pool.getAgentList();
 
+        g.translate(-viewer.getViewportBounds().x, -viewer.getViewportBounds().y); //Evil viewport hacks
+        g = (Graphics2D) g.create();
 
         for (Agent agent : agents) {
-            Point2D agentPixel = transformAgentPosition(viewer.getTileFactory().geoToPixel(agent.getGeoPosition(), viewer.getZoom()));
-            g.drawImage(carImage, transparentFilter, (int) agentPixel.getX() + carImage.getWidth(), (int) agentPixel.getY());
+            Point2D agentPixel = viewer.getTileFactory().geoToPixel(agent.getGeoPosition(), viewer.getZoom());
+            int x = (int) agentPixel.getX();
+            int y = (int) agentPixel.getY();
+            g.drawImage(carImage, getWidth(x), getHeight(y), null);
         }
     }
 
-    private Point2D transformAgentPosition(Point2D agentPoint) {
-        return new Point2D.Double(agentPoint.getX() + carImage.getWidth() / 2, agentPoint.getY() + carImage.getHeight() / 2);
+    private int getWidth(int x) {
+        return x - (carImage.getWidth() / 2);
+    }
+
+    private int getHeight(int y) {
+        return y - (carImage.getHeight() / 2);
     }
 }

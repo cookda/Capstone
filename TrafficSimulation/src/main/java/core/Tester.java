@@ -2,6 +2,8 @@ package core;
 
 import cache.CacheHandler;
 import gui.SimFrame;
+import sim.Agent;
+import sim.AgentPool;
 import tests.DomTest;
 import tests.MapTest;
 import tests.MapViewerTest;
@@ -17,15 +19,20 @@ public class Tester {
         UserProfile up = UserProfile.getInstance();
         up.setMap(
             new UserMap(
-                Constants.GREENSBORO_LAT,
-                Constants.GREENSBORO_LON,
-                0.025
+                Constants.BOONE_SMALL_LAT,
+                Constants.BOONE_SMALL_LON,
+                0.002
             )
         );
         up.setCache(new CacheHandler());
 
         MapTest.basicTest();
         DomTest.getNodes();
+        up.getWayMap().values().forEach(way -> {
+            double x = way.getNodes().get(0).getLat();
+            double y = way.getNodes().get(0).getLon();
+            AgentPool.getInstance().addAgent(new Agent(x, y));
+        });
         SimFrame sf = new SimFrame();
         //MapViewerTest.testJX();
     }

@@ -17,24 +17,25 @@ public class UserProfile {
     private static UserProfile instance;
     private UserMap map;
     private CacheHandler cache;
-    private ArrayList<TNode> nodes;
-    private ArrayList<Way> ways;
+//  private ArrayList<TNode> nodes;
+//  private ArrayList<Way> ways;
 
     private HashMap<Long, Way> wayMap;
     private HashMap<Long, TNode> nodeMap;
 
 
-    public ArrayList<Way> getWays(){
+   /* public ArrayList<Way> getWays(){
         return ways;
-    }
+    }*/
 
+    /*
     public ArrayList<TNode> getNodes() {
         return nodes;
-    }
+    }*/
 
     private UserProfile() {
-        nodes = new ArrayList<>();
-        ways = new ArrayList<>();
+      //nodes = new ArrayList<>();
+      //ways = new ArrayList<>();
         wayMap = new HashMap<>();
         nodeMap = new HashMap<>();
     }

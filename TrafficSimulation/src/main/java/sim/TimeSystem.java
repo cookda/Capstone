@@ -31,4 +31,25 @@ public class TimeSystem {
             time += timeSpeed;
         }
     }
+
+
+    public void runStep() {
+        time += timeSpeed;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public double getTimeSpeed() {
+        return timeSpeed;
+    }
+
+    public void setTimeSpeed(double timeSpeed) {
+        this.timeSpeed = timeSpeed;
+    }
 }
