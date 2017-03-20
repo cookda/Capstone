@@ -1,8 +1,8 @@
 package sim;
 
-import org.antlr.v4.runtime.misc.Pair;
+import javafx.util.Pair;
 import org.jxmapviewer.viewer.GeoPosition;
-
+import java.lang.Math;
 /**
  * Created by Wayne on 3/5/2017.
  */
@@ -10,6 +10,8 @@ public class Agent {
 
     private double latitude;
     private double longitude;
+    private double distance;
+    private final static double R = 6372.8;
     private GeoPosition geoPosition;
     private Pair<GeoPosition, GeoPosition> trip;
 
@@ -57,4 +59,14 @@ public class Agent {
         this.trip = trip;
     }
 
+
+    public static double haverSine(double latStart, double lonStart, double latEnd, double lonEnd){
+        double disLon = Math.toRadians(lonEnd - lonStart);
+        double disLat = Math.toRadians(latEnd - latStart);
+        latStart = Math.toRadians(latStart);
+        latEnd = Math.toRadians(latEnd);
+        double a = Math.pow(Math.sin(disLat/2),2) + Math.pow(Math.sin(disLon / 2),2) * Math.cos(latStart) * Math.cos(latEnd);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        return R * c;
+    }
 }
