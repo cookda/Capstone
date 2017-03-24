@@ -19,7 +19,7 @@ public class Main {
                 new UserMap(
                         Constants.BOONE_SMALL_LAT,
                         Constants.BOONE_SMALL_LON,
-                        0.010
+                        0.020
                 )
         );
         up.setCache(new CacheHandler());
@@ -27,9 +27,9 @@ public class Main {
         MapTest.basicTest();
         DomTest.getNodes();
         SimFrame sf = new SimFrame();
-        AgentGeneratorTests.testRandomGenerator(400);
+        AgentGeneratorTests.testRandomGenerator(10);
         Simulation simulation = new Simulation(sf.getMapViewer());
-        simulation.runStep();
+        //simulation.runStep();
         //MapViewerTest.testJX();
     }
 
