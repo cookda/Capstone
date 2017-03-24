@@ -21,6 +21,7 @@ public class Simulation {
         timeSystem.runStep();
         for (Agent agent : agentPool.getAgentList()) {
             //calculate distance within Agent and assign its distance. redraw.
+
             viewer.getMapViewer().repaint();
         }
     }

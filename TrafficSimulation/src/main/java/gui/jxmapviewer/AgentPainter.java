@@ -35,18 +35,21 @@ public class AgentPainter implements Painter<JXMapViewer> {
         }
     }
 
-    @Override public void paint(Graphics2D g, JXMapViewer jxMapViewer, int width, int height) {
+    @Override
+    public void paint(Graphics2D g, JXMapViewer jxMapViewer, int width, int height) {
 
         List<Agent> agents  = pool.getAgentList();
 
-        g.translate(-viewer.getViewportBounds().x, -viewer.getViewportBounds().y); //Evil viewport hacks
+        g.translate(-viewer.getViewportBounds().x, -viewer.getViewportBounds().y);
         g = (Graphics2D) g.create();
+        Image scaledImage =
+                 carImage.getScaledInstance(getScaled(carImage.getWidth(), viewer.getZoom()), getScaled(carImage.getHeight(), viewer.getZoom()), 0);
 
         for (Agent agent : agents) {
             Point2D agentPixel = viewer.getTileFactory().geoToPixel(agent.getGeoPosition(), viewer.getZoom());
             int x = (int) agentPixel.getX();
             int y = (int) agentPixel.getY();
-            g.drawImage(carImage, getWidth(x), getHeight(y), null);
+            g.drawImage(scaledImage, getWidth(x), getHeight(y), null);
         }
     }
 
@@ -56,5 +59,9 @@ public class AgentPainter implements Painter<JXMapViewer> {
 
     private int getHeight(int y) {
         return y - (carImage.getHeight() / 2);
+    }
+
+    private int getScaled(int val, int zoom) {
+        return val; /// (zoom + 1);
     }
 }

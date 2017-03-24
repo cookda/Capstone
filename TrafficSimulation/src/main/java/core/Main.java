@@ -3,6 +3,7 @@ package core;
 import cache.CacheHandler;
 import gui.SimFrame;
 import sim.Simulation;
+import tests.AgentGeneratorTests;
 import tests.DomTest;
 import tests.MapTest;
 
@@ -18,7 +19,7 @@ public class Main {
                 new UserMap(
                         Constants.BOONE_SMALL_LAT,
                         Constants.BOONE_SMALL_LON,
-                        0.002
+                        0.010
                 )
         );
         up.setCache(new CacheHandler());
@@ -26,7 +27,9 @@ public class Main {
         MapTest.basicTest();
         DomTest.getNodes();
         SimFrame sf = new SimFrame();
+        AgentGeneratorTests.testRandomGenerator(400);
         Simulation simulation = new Simulation(sf.getMapViewer());
+        simulation.runStep();
         //MapViewerTest.testJX();
     }
 

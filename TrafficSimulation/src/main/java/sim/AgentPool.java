@@ -8,7 +8,6 @@ import java.util.List;
  */
 public class AgentPool {
 
-    //Eagerly instantiate the singleton
     private static final AgentPool instance = new AgentPool();
 
     private List<Agent> agentList;

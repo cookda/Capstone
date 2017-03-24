@@ -1,7 +1,10 @@
 package sim;
 
 import javafx.util.Pair;
+import nodes.impl.TNode;
 import org.jxmapviewer.viewer.GeoPosition;
+import vehicle.VehicleType;
+
 import java.lang.Math;
 /**
  * Created by Wayne on 3/5/2017.
@@ -14,17 +17,22 @@ public class Agent {
     private final static double R = 6372.8;
     private GeoPosition geoPosition;
     private Pair<GeoPosition, GeoPosition> trip;
+    private VehicleType vehicleType;
 
     public Agent(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
         geoPosition = new GeoPosition(latitude, longitude);
+        vehicleType = VehicleType.CAR;
     }
 
-    public Agent(double latitude, double longitude, GeoPosition start, GeoPosition end) {
-        this(latitude, longitude);
+    public Agent(GeoPosition start, GeoPosition end) {
+        this(start.getLatitude(), start.getLongitude());
         trip = new Pair<>(start, end);
+    }
 
+    public Agent(TNode start, TNode end) {
+        this(start.getGeoPosition(), end.getGeoPosition());
     }
 
     public double getLatitude() {
@@ -59,6 +67,14 @@ public class Agent {
         this.trip = trip;
     }
 
+    public VehicleType getType() {
+        return vehicleType;
+    }
+
+    @Override
+    public String toString() {
+        return "GeoPosition: " + geoPosition + " - Trip start: " + trip.getKey() + " - Trip end: " + trip.getValue();
+    }
 
     public static double haverSine(double latStart, double lonStart, double latEnd, double lonEnd){
         double disLon = Math.toRadians(lonEnd - lonStart);
