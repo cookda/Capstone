@@ -4,17 +4,19 @@ import cache.CacheHandler;
 import nodes.impl.TNode;
 import nodes.impl.Way;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by aron on 2/10/17.
  */
-public class UserProfile {
+public class UserProfile implements Serializable {
 
 
+    private static final long serialVersionUID = 40234L;
 
-    private static UserProfile instance;
+    private transient static UserProfile instance;
     private UserMap map;
     private CacheHandler cache;
 
@@ -36,6 +38,10 @@ public class UserProfile {
             instance = new UserProfile();
         }
         return instance;
+    }
+
+    public void setInstance(UserProfile instance) {
+        this.instance = instance;
     }
 
     /**

@@ -35,7 +35,7 @@ public class AgentGenerator {
         List<TNode> lowerRightBoundNodes = new ArrayList<>();
 
         double upperBounding = 0.0020;
-        double lowerBounding = 0.050000;
+        double lowerBounding = 0.0500;
         userProfile.getWayMap().values().forEach(way -> {
             way.getNodes().forEach(node -> {
                 if (node.getLat() - leftBound < upperBounding && node.getLon() - upperBound < upperBounding) {
