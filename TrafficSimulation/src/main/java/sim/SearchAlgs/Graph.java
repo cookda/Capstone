@@ -46,7 +46,7 @@ public class Graph {
                     graph.add(g);
                 }
                 else{
-
+                    //need to finish loop for edges
                 }
             }
         });
