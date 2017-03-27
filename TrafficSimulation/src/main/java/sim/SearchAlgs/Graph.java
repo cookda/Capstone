@@ -33,6 +33,7 @@ public class Graph {
         nodeMap = um.getNodeMap();
     }
 
+
     public void buildGraph(){
         wayMap.values().forEach(way -> {
             ways = way.getNodes();
@@ -42,11 +43,8 @@ public class Graph {
                 double distance = getDistance(left, right);
                 Edge e = new Edge(distance, left, right);
                 GNode g = new GNode(left, e);
-                if(!graph.contains(g)){
+                if(!graph.contains(g)) {
                     graph.add(g);
-                }
-                else{
-                    //need to finish loop for edges
                 }
             }
         });
