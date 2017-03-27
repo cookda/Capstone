@@ -2,10 +2,7 @@ package gui;
 
 import core.Constants;
 import core.UserProfile;
-import gui.jxmapviewer.AgentPainter;
-import gui.jxmapviewer.FancyWaypointRenderer;
-import gui.jxmapviewer.MyWaypoint;
-import gui.jxmapviewer.WayPainter;
+import gui.jxmapviewer.*;
 import javafx.util.Pair;
 import nodes.impl.TNode;
 import org.jxmapviewer.JXMapViewer;
@@ -88,62 +85,27 @@ public class MapViewer {
             }
         });
 
-        Set<MyWaypoint> pointSet = new HashSet<MyWaypoint>();
 
-        //Adds each way node into our Set for painting
-        UserProfile.getInstance().getWayMap().values().forEach(way -> {
-            ArrayList<TNode> wayNodes = way.getNodes();
-            for (int i = 0; i < way.getNodes().size(); i++) {
-                GeoPosition nodePos = new GeoPosition(wayNodes.get(i).getLat(), wayNodes.get(i).getLon());
-                pointSet.add(new MyWaypoint("", Color.WHITE, nodePos));
-            }
-        });
 
 
         wayPainter = new WayPainter(mapViewer);
-
-        //This is an ArrayList of a Pair consisting of an ArrayList of Pairs and a Color for the way
-        //In order to retain your sanity, I suggest not attempting to understand it unless required
-        ArrayList<Pair<ArrayList<Pair<GeoPosition, GeoPosition>>, Color>> nodePairLists = new ArrayList<>();
-
-        UserProfile.getInstance().getWayMap().values().forEach(way -> {
-            ArrayList<Pair<GeoPosition, GeoPosition>> nodePairList = new ArrayList<>();
-            ArrayList<TNode> wayNodes = way.getNodes();
-            for (int i = 0; i < wayNodes.size(); i++) {
-                if (i < wayNodes.size() - 1) {
-                    nodePairList.add(new Pair<>(
-                            new GeoPosition(wayNodes.get(i).getLat(), wayNodes.get(i).getLon()),
-                            new GeoPosition(wayNodes.get(i + 1).getLat(), wayNodes.get(i + 1).getLon())
-                    ));
-                }
-            }
-            nodePairLists.add(new Pair<>(nodePairList, way.getRoadType().getColor()));
-        });
-        wayPainter.setWayLines(nodePairLists);
+        setWayLines();
 
         waypointPainter = new WaypointPainter<>();
-        waypointPainter.setWaypoints(pointSet);
         waypointPainter.setRenderer(new FancyWaypointRenderer());
+        setNodeSet();
 
-        //Add a test agent to the AgentPool
-        //Create/set up the agent painter
         AgentPainter agentPainter = new AgentPainter(mapViewer);
+
+        InfoPainter infoPainter = new InfoPainter();
 
 
         compoundPainter = new CompoundPainter<>();
         compoundPainter.addPainter(agentPainter);
+        compoundPainter.addPainter(infoPainter);
+
 
         mapViewer.setOverlayPainter(compoundPainter);
-
-
-        /*
-        JFrame frame = new JFrame("Traffic Simulator");
-        frame.getContentPane().add(mapViewer);
-        frame.setSize(800, 800);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        mapViewer.repaint();
-        */
     }
 
     private GeoPosition getMouseGeoPosition(Point p) {
@@ -198,5 +160,41 @@ public class MapViewer {
         tileFactoryInfo = new VirtualEarthTileFactoryInfo(tileFactoryType);
         tileFactory = new DefaultTileFactory(tileFactoryInfo);
         mapViewer.setTileFactory(tileFactory);
+    }
+
+    public void setWayLines() {
+        //This is an ArrayList of a Pair consisting of an ArrayList of Pairs and a Color for the way
+        //In order to retain your sanity, I suggest not attempting to understand it unless required
+        //TODO make this actually readable, make another class
+        ArrayList<Pair<ArrayList<Pair<GeoPosition, GeoPosition>>, Color>> nodePairLists = new ArrayList<>();
+
+        UserProfile.getInstance().getWayMap().values().forEach(way -> {
+            ArrayList<Pair<GeoPosition, GeoPosition>> nodePairList = new ArrayList<>();
+            ArrayList<TNode> wayNodes = way.getNodes();
+            for (int i = 0; i < wayNodes.size(); i++) {
+                if (i < wayNodes.size() - 1) {
+                    nodePairList.add(new Pair<>(
+                            new GeoPosition(wayNodes.get(i).getLat(), wayNodes.get(i).getLon()),
+                            new GeoPosition(wayNodes.get(i + 1).getLat(), wayNodes.get(i + 1).getLon())
+                    ));
+                }
+            }
+            nodePairLists.add(new Pair<>(nodePairList, way.getRoadType().getColor()));
+        });
+        wayPainter.setWayLines(nodePairLists);
+    }
+
+    public void setNodeSet() {
+        Set<MyWaypoint> pointSet = new HashSet<MyWaypoint>();
+
+        //Adds each way node into our Set for painting
+        UserProfile.getInstance().getWayMap().values().forEach(way -> {
+            ArrayList<TNode> wayNodes = way.getNodes();
+            for (int i = 0; i < way.getNodes().size(); i++) {
+                GeoPosition nodePos = new GeoPosition(wayNodes.get(i).getLat(), wayNodes.get(i).getLon());
+                pointSet.add(new MyWaypoint("", Color.WHITE, nodePos));
+            }
+        });
+        waypointPainter.setWaypoints(pointSet);
     }
 }

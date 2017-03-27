@@ -17,8 +17,8 @@ public class UserProfile implements Serializable {
     private static final long serialVersionUID = 40234L;
 
     private transient static UserProfile instance;
+    private transient CacheHandler cache;
     private UserMap map;
-    private CacheHandler cache;
 
     private HashMap<Long, Way> wayMap;
     private HashMap<Long, TNode> nodeMap;
@@ -40,8 +40,8 @@ public class UserProfile implements Serializable {
         return instance;
     }
 
-    public void setInstance(UserProfile instance) {
-        this.instance = instance;
+    public static void setInstance(UserProfile instance) {
+        UserProfile.instance = instance;
     }
 
     /**

@@ -1,6 +1,7 @@
 package nodes.impl;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -8,7 +9,9 @@ import java.util.stream.Stream;
 /**
  * Created by gigaw on 2/17/2017.
  */
-public class Way {
+public class Way implements Serializable {
+
+    private static final long serialVersionUID = 40234L;
 
     //Retrieved from http://wiki.openstreetmap.org/wiki/Key:highway
     private final static Color motorwayColor = new Color(0xEA90A0);

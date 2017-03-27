@@ -36,7 +36,7 @@ public class AgentGenerator {
 
         double upperBounding = 0.0020;
         double lowerBounding = 0.0500;
-        userProfile.getWayMap().values().forEach(way -> {
+        userProfile.getWayMap().values().forEach(way ->
             way.getNodes().forEach(node -> {
                 if (node.getLat() - leftBound < upperBounding && node.getLon() - upperBound < upperBounding) {
                     upperLeftBoundNodes.add(node);
@@ -47,8 +47,8 @@ public class AgentGenerator {
                 } else if (node.getLat() - rightBound < lowerBounding && node.getLon() - lowerBound < lowerBounding) {
                     lowerRightBoundNodes.add(node);
                 }
-            });
-        });
+            })
+        );
 
         for (int i = 0; i < amount; i++) {
             boolean upper = ThreadLocalRandom.current().nextInt(100) > 50;

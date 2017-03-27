@@ -11,6 +11,7 @@ public class AgentGeneratorTests {
 
     public static void testRandomGenerator(int amount) {
         new AgentGenerator().randomAgentGenerator(amount);
+        System.out.println("Generated " + amount + " agents");
     }
 
     public static void listAgents() {

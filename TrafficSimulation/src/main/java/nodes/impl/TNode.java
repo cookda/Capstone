@@ -2,10 +2,15 @@ package nodes.impl;
 
 import org.jxmapviewer.viewer.GeoPosition;
 
+import java.io.Serializable;
+
 /**
  * Created by gigaw on 2/13/2017.
  */
-public class TNode {
+public class TNode implements Serializable {
+
+    private static final long serialVersionUID = 40234L;
+
     private long id;
     private double lon;
     private double lat;

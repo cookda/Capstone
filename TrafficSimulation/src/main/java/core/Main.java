@@ -27,9 +27,9 @@ public class Main {
         MapTest.basicTest();
         DomTest.getNodes();
         SimFrame sf = new SimFrame();
-        AgentGeneratorTests.testRandomGenerator(10);
+        AgentGeneratorTests.testRandomGenerator(50);
         Simulation simulation = new Simulation(sf.getMapViewer());
-        //simulation.runStep();
+        //new Thread(simulation::run).start();
         //MapViewerTest.testJX();
     }
 

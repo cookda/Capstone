@@ -29,6 +29,7 @@ public class SimFrame extends JFrame {
         mv = new MapViewer();
 
         JPanel panel_1 = new ControlPanel(mv);
+        JPanel SimPanel = new SimPanel();
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
                 gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -80,12 +81,14 @@ public class SimFrame extends JFrame {
             File file = jfc.getSelectedFile();
             try {
                 ObjectInputStream objectIn = new ObjectInputStream(new FileInputStream(file));
-                UserProfile.getInstance().setInstance((UserProfile) objectIn.readObject());
+                UserProfile.setInstance((UserProfile) objectIn.readObject());
                 objectIn.close();
             } catch (Exception e) {
                 System.out.println("Error in loading! " + e.getMessage());
             }
         }
+        mv.setNodeSet();
+        mv.setWayLines();
         mv.getMapViewer().repaint();
     }
 

@@ -1,9 +1,13 @@
 package core;
 
+import java.io.Serializable;
+
 /**
  * Created by aron on 2/16/17.
  */
-public class UserMap {
+public class UserMap implements Serializable {
+
+    private static final long serialVersionUID = 40234L;
 
     private double latitude;
     private double longitude;
