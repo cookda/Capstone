@@ -18,6 +18,7 @@ public class Graph {
     private static Graph instance;
     private ArrayList<TNode> ways;
     private HashSet<GNode> graph;
+    private HashSet<Edge> edges;
 
 
     public static Graph getInstance(){
@@ -42,8 +43,11 @@ public class Graph {
                 TNode right = ways.get(i + 1);
                 double distance = getDistance(left, right);
                 Edge e = new Edge(distance, left, right);
-                GNode g = new GNode(left, e);
-                if(!graph.contains(g)) {
+                if(!edges.contains(e)){
+                    edges.add(e);
+                }
+                GNode g = new GNode(left, edges);
+                if(!graph.contains(g)){
                     graph.add(g);
                 }
             }
@@ -58,5 +62,7 @@ public class Graph {
         return Agent.haverSine(latStart, lonStart, latEnd, lonEnd);
     }
 
-
+    public HashSet<GNode> getGraph(){
+        return graph;
+    }
 }

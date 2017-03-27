@@ -8,13 +8,13 @@ import nodes.impl.TNode;
 public class Edge
 {
     private double distance;
-    private TNode left;
-    private TNode right;
+    private TNode start;
+    private TNode end;
 
-    public Edge(double distance, TNode left, TNode right){
+    public Edge(double distance, TNode start, TNode end){
         this.distance = distance;
-        this.left = left;
-        this.right = right;
+        this.start = start;
+        this.end = end;
     }
 
     public double getDistance() {
@@ -25,19 +25,19 @@ public class Edge
         this.distance = distance;
     }
 
-    public TNode getLeft() {
-        return left;
+    public TNode getStart() {
+        return start;
     }
 
-    public void setLeft(TNode left) {
-        this.left = left;
+    public void setStart(TNode start) {
+        this.start = start;
     }
 
-    public TNode getRight() {
-        return right;
+    public TNode getEnd() {
+        return end;
     }
 
-    public void setRight(TNode right) {
-        this.right = right;
+    public void setEnd(TNode end) {
+        this.end = end;
     }
 }
