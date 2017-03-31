@@ -17,7 +17,7 @@ public class Graph {
     private HashMap<Long, TNode> nodeMap;
     private static Graph instance;
     private ArrayList<TNode> ways;
-    private HashSet<GNode> graph;
+    private HashSet<TNode> graph;
     private HashSet<Edge> edges;
 
 
@@ -38,17 +38,23 @@ public class Graph {
     public void buildGraph(){
         wayMap.values().forEach(way -> {
             ways = way.getNodes();
-            for(int i = 0; i < ways.size(); i++){
+            for (int i = 0; i < ways.size(); i++){
                 TNode left = ways.get(i);
                 TNode right = ways.get(i + 1);
                 double distance = getDistance(left, right);
                 Edge e = new Edge(distance, left, right);
-                if(!edges.contains(e)){
+                if (!edges.contains(e)){
                     edges.add(e);
                 }
-                GNode g = new GNode(left, edges);
-                if(!graph.contains(g)){
-                    graph.add(g);
+                left.addEdge(e);
+                right.addEdge(e);
+
+                if (!graph.contains(left)){
+                    graph.add(left);
+                }
+
+                if(!graph.contains(right)){
+                    graph.add(right);
                 }
             }
         });
@@ -62,7 +68,7 @@ public class Graph {
         return Agent.haverSine(latStart, lonStart, latEnd, lonEnd);
     }
 
-    public HashSet<GNode> getGraph(){
+    public HashSet<TNode> getGraph(){
         return graph;
     }
 }

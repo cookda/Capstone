@@ -1,11 +1,13 @@
 package nodes.impl;
 
 import org.jxmapviewer.viewer.GeoPosition;
+import sim.SearchAlgs.Edge;
 
 import java.io.Serializable;
+import java.util.HashSet;
 
 /**
- * Created by gigaw on 2/13/2017.
+ * Created by Dalton on 2/13/2017.
  */
 public class TNode implements Serializable {
 
@@ -14,13 +16,23 @@ public class TNode implements Serializable {
     private long id;
     private double lon;
     private double lat;
+
+    public HashSet<Edge> getEdges() {
+        return edges;
+    }
+
     private GeoPosition geoPosition;
+    private HashSet<Edge> edges;
 
     public TNode(long id, double lon, double lat) {
         this.id = id;
         this.lon = lon;
         this.lat = lat;
         geoPosition = new GeoPosition(lat, lon);
+    }
+
+    public void addEdge(Edge e){
+        edges.add(e);
     }
 
     public double getLon() {

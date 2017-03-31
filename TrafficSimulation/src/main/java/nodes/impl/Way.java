@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
- * Created by gigaw on 2/17/2017.
+ * Created by Dalton/Wayne on 2/17/2017.
  */
 public class Way implements Serializable {
 
