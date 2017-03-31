@@ -63,12 +63,12 @@ public class AStar extends SearchAlg{
                 cost += Agent.haverSine(current.getLat(), current.getLon(), end.getLat(), end.getLon());
                 if (cost < bestDistance) {
                     bestDistance = cost;
-
+                    current = adjacent.get(i);
                 }
-
-
             }
-
+            if (current.getLat() == end.getLat() && current.getLon() == end.getLon()){
+                finished = true;
+            }
         }
         //if (current.gettN().getId() == end.gettN().getId())
             //finished = true;

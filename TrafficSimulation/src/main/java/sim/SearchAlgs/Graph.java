@@ -8,6 +8,7 @@ import sim.Agent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Optional;
 
 /**
  * Created by Dalton on 3/24/2017.
@@ -34,7 +35,9 @@ public class Graph {
         nodeMap = um.getNodeMap();
     }
 
-
+    /**
+     * Builds the graphs by adding edges to the our T nodes.
+     */
     public void buildGraph(){
         wayMap.values().forEach(way -> {
             ways = way.getNodes();
@@ -49,10 +52,9 @@ public class Graph {
                 left.addEdge(e);
                 right.addEdge(e);
 
-                if (!graph.contains(left)){
+                if (!graph.contains(left)) {
                     graph.add(left);
                 }
-
                 if(!graph.contains(right)){
                     graph.add(right);
                 }
