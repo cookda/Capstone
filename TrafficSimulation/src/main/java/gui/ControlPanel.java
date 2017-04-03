@@ -1,5 +1,9 @@
 package gui;
 
+
+
+import org.jxmapviewer.JXMapViewer;
+
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -7,13 +11,11 @@ import javax.swing.JButton;
 
 public class ControlPanel extends JPanel {
 
-    private MapViewer mapViewer;
 
     /**
      * Create the panel.
      */
     public ControlPanel(MapViewer mapViewer) {
-        this.mapViewer = mapViewer;
 
         JButton wayButton = new JButton("Show ways");
         wayButton.addActionListener(event -> {

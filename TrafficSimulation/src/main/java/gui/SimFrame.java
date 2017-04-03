@@ -13,7 +13,7 @@ public class SimFrame extends JFrame {
 
     private JPanel contentPane;
     private MapViewer mv;
-    private final JFileChooser jfc = new JFileChooser();
+    private final JFileChooser jfc = new JFileChooser(System.getProperty("user.home") + "/CapstoneData/profiles");
 
 
     public SimFrame() {
@@ -28,25 +28,28 @@ public class SimFrame extends JFrame {
 
         mv = new MapViewer();
 
-        JPanel panel_1 = new ControlPanel(mv);
+        JPanel controlPanel = new ControlPanel(mv);
         JPanel SimPanel = new SimControlPanel();
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
                 gl_contentPane.createParallelGroup(Alignment.LEADING)
-                        .addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 1176, Short.MAX_VALUE)
+                        .addComponent(mv.getMapViewer(), GroupLayout.DEFAULT_SIZE, 1174, Short.MAX_VALUE)
+                        .addGroup(gl_contentPane.createSequentialGroup()
+                                .addComponent(controlPanel, GroupLayout.DEFAULT_SIZE, 1176, Short.MAX_VALUE)
+                        .addComponent(SimPanel, GroupLayout.DEFAULT_SIZE, 1176, Short.MAX_VALUE)
                         .addGroup(gl_contentPane.createSequentialGroup()
                                 .addComponent(mv.getMapViewer(), GroupLayout.DEFAULT_SIZE, 1174, Short.MAX_VALUE)
                                 .addContainerGap()
                                 .addComponent(SimPanel, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                                 .addContainerGap())
-        );
+        ));
         gl_contentPane.setVerticalGroup(
                 gl_contentPane.createParallelGroup(Alignment.LEADING)
                         .addGroup(gl_contentPane.createSequentialGroup()
                                 .addComponent(mv.getMapViewer(), GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
                                 .addComponent(SimPanel, GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
                                 .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(controlPanel, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
         );
         contentPane.setLayout(gl_contentPane);
         setVisible(true);
