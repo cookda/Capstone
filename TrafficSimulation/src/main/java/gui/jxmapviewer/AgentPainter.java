@@ -12,6 +12,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.File;
+import java.net.URL;
 import java.util.List;
 
 
@@ -27,8 +28,12 @@ public class AgentPainter implements Painter<JXMapViewer> {
     public AgentPainter(JXMapViewer viewer) {
         this.viewer = viewer;
         pool = AgentPool.getInstance();
+        ClassLoader cl = getClass().getClassLoader();
+        URL resourceURL = cl.getResource("java/gui/jxmapviewer/agent.png");
+        String resourcePath = resourceURL == null ? "Null" : resourceURL.getPath();
+        //System.out.println("Resource folder: " + resourcePath);
         try {
-            carImage = ImageIO.read(new File(Constants.IMAGE_DIR + "/agent.png"));
+            carImage = ImageIO.read(new File(resourcePath));
         } catch (Exception e) {
             System.out.println("Couldn't get the image for the car agents");
             System.out.println(e.getMessage());
