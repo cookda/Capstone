@@ -25,7 +25,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
+import java.util.List;
 
 /**
  * Created by Wayne on 3/4/2017.
@@ -41,6 +41,7 @@ public class MapViewer {
 
     private WaypointPainter<MyWaypoint> waypointPainter;
     private WayPainter wayPainter;
+    private PathPainter pathPainter;
 
     private boolean waysEnabled;
     private boolean nodesEnabled;
@@ -103,15 +104,15 @@ public class MapViewer {
 
         InfoPainter infoPainter = new InfoPainter();
 
+        pathPainter = new PathPainter(mapViewer);
 
         compoundPainter = new CompoundPainter<>();
         compoundPainter.addPainter(agentPainter);
         compoundPainter.addPainter(infoPainter);
+        compoundPainter.addPainter(pathPainter);
 
 
         mapViewer.setOverlayPainter(compoundPainter);
-
-
     }
 
     private GeoPosition getMouseGeoPosition(Point p) {
@@ -202,5 +203,10 @@ public class MapViewer {
             }
         });
         waypointPainter.setWaypoints(pointSet);
+    }
+
+    public void setPath(List<TNode> list) {
+        pathPainter.setPath(list);
+        mapViewer.repaint();
     }
 }

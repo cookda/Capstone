@@ -29,6 +29,7 @@ public class TNode implements Serializable {
         this.lon = lon;
         this.lat = lat;
         geoPosition = new GeoPosition(lat, lon);
+        edges = new HashSet<>();
     }
 
     public void addEdge(Edge e){

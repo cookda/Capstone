@@ -33,6 +33,8 @@ public class Graph {
         UserProfile um = UserProfile.getInstance();
         wayMap = um.getWayMap();
         nodeMap = um.getNodeMap();
+        edges = new HashSet<>();
+        graph = new HashSet<>();
     }
 
     /**
@@ -41,7 +43,7 @@ public class Graph {
     public void buildGraph(){
         wayMap.values().forEach(way -> {
             ways = way.getNodes();
-            for (int i = 0; i < ways.size(); i++){
+            for (int i = 0; i < ways.size() - 1; i++){
                 TNode left = ways.get(i);
                 TNode right = ways.get(i + 1);
                 double distance = getDistance(left, right);

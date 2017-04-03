@@ -50,6 +50,8 @@ public class FancyWaypointRenderer implements WaypointRenderer<MyWaypoint>
     {
         try
         {
+            //TODO: Transfer to resoure loading
+            ClassLoader cl = getClass().getClassLoader();
             origImage = ImageIO.read(new File(Constants.IMAGE_DIR + "/waypoint_white.png"));
         }
         catch (Exception ex)
