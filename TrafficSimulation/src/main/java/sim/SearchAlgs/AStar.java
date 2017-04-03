@@ -70,8 +70,6 @@ public class AStar extends SearchAlg{
                 finished = true;
             }
         }
-        //if (current.gettN().getId() == end.gettN().getId())
-            //finished = true;
     }
 
     public TNode getStart(){
@@ -84,19 +82,14 @@ public class AStar extends SearchAlg{
 
     private ArrayList<TNode> getAdjacent(TNode start){
         ArrayList<TNode> adj = new ArrayList<TNode>();
-        /*for(Edge e: start.getE()){
+        for(Edge e: start.getEdges()){
             adj.add(e.getEnd());
-        }*/
+        }
         return adj;
     }
 
-    private double determineCost(TNode current, TNode next){
+    private double determineCost(TNode current, TNode nextNode){
         double cost = 0.0;
-        /*for(Edge e : current.getE()){
-            if(e.getEnd().getId() == next.getId()){
-                cost = e.getDistance();
-            }
-        }*/
         return cost;
     }
 }
