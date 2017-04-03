@@ -95,6 +95,10 @@ public class MapViewer {
         waypointPainter.setRenderer(new FancyWaypointRenderer());
         setNodeSet();
 
+        //Add a test agent to the AgentPool
+        //AgentPool.getInstance().addAgent(new Agent(userProfile.getMap().getLatitude(), userProfile.getMap().getLongitude()));
+        //Create/set up the agent painter
+        //AgentPainter agentPainter = new AgentPainter(mapViewer);
         AgentPainter agentPainter = new AgentPainter(mapViewer);
 
         InfoPainter infoPainter = new InfoPainter();
@@ -106,6 +110,8 @@ public class MapViewer {
 
 
         mapViewer.setOverlayPainter(compoundPainter);
+
+
     }
 
     private GeoPosition getMouseGeoPosition(Point p) {

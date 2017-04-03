@@ -1,9 +1,5 @@
 package gui;
 
-
-
-import org.jxmapviewer.JXMapViewer;
-
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -56,17 +52,21 @@ public class ControlPanel extends JPanel {
             mapViewer.getMapViewer().repaint();
         });
 
+        JButton btnShowAgents = new JButton("Show agents");
+
         GroupLayout groupLayout = new GroupLayout(this);
         groupLayout.setHorizontalGroup(
                 groupLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(groupLayout.createSequentialGroup()
-                                .addGap(154)
+                                .addGap(36)
+                                .addComponent(btnShowAgents)
+                                .addGap(29)
                                 .addComponent(wayButton)
                                 .addGap(18)
                                 .addComponent(nodeButton)
                                 .addGap(18)
                                 .addComponent(viewSwitcher)
-                                .addContainerGap(195, Short.MAX_VALUE))
+                                .addContainerGap(72, Short.MAX_VALUE))
         );
         groupLayout.setVerticalGroup(
                 groupLayout.createParallelGroup(Alignment.LEADING)
@@ -75,10 +75,10 @@ public class ControlPanel extends JPanel {
                                 .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
                                         .addComponent(wayButton)
                                         .addComponent(nodeButton)
-                                        .addComponent(viewSwitcher))
+                                        .addComponent(viewSwitcher)
+                                        .addComponent(btnShowAgents))
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         setLayout(groupLayout);
-
     }
 }
