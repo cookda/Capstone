@@ -49,10 +49,12 @@ public class AStar extends SearchAlg{
      * then adding that to the closed linkedlist.  We then iterate over all the nodes connected
      * to the current node and take the best one according to distance to the goal node.
      */
-    public void getPath(){
+    public ArrayList<TNode> getPath(){
         LinkedList<TNode> open = new LinkedList<TNode>();
         LinkedList<TNode> closed = new LinkedList<TNode>();
+        ArrayList<TNode> path = new ArrayList<TNode>();
         TNode current = start;
+        TNode bestNode = start;
         boolean finished = false;
         double bestDistance = Double.POSITIVE_INFINITY;
         open.add(start);
@@ -63,9 +65,11 @@ public class AStar extends SearchAlg{
                 cost += Agent.haverSine(current.getLat(), current.getLon(), end.getLat(), end.getLon());
                 if (cost < bestDistance) {
                     bestDistance = cost;
-                    current = adjacent.get(i);
+                    bestNode = adjacent.get(i);
                 }
             }
+            current = bestNode;
+            path.add(bestNode);
             if (current.getLat() == end.getLat() && current.getLon() == end.getLon()){
                 finished = true;
             }
