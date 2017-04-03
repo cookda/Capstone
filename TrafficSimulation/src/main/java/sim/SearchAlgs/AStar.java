@@ -89,7 +89,15 @@ public class AStar extends SearchAlg{
     }
 
     private double determineCost(TNode current, TNode nextNode){
-        double cost = 0.0;
-        return cost;
+        for(Edge e: current.getEdges()){
+            double latCur = e.getEnd().getLat();
+            double lonCur = e.getEnd().getLon();
+            double nextNodeLat = nextNode.getLat();
+            double nextNodeLon = nextNode.getLon();
+            if(latCur == nextNodeLat && lonCur == nextNodeLon){
+                return e.getDistance();
+            }
+        }
+        return Double.MAX_VALUE;
     }
 }
