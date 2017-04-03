@@ -74,6 +74,7 @@ public class AStar extends SearchAlg{
                 finished = true;
             }
         }
+        return path;
     }
 
     public TNode getStart(){
