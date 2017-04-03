@@ -35,14 +35,20 @@ public class Main {
         MapTest.basicTest();
         DomTest.getNodes();
         SimFrame sf = new SimFrame();
-        AgentGeneratorTests.testRandomGenerator(50);
+        AgentGeneratorTests.testRandomGenerator(1);
         Simulation simulation = new Simulation(sf.getMapViewer());
         List<Agent> agents = AgentPool.getInstance().getAgentList();
         Agent agentPath = agents.get(0);
         Graph graph = Graph.getInstance();
         graph.buildGraph();
         AStar algo = new AStar(graph.getGraph(), agents.get(0));
-        sf.getMapViewer().setPath(algo.getPath());
+        algo.findTripNodes();
+        List<TNode> path = algo.getPath();
+        path.forEach(System.out::println);
+        if (path.size() == 0) {
+            System.out.println("Empty path");
+        }
+        sf.getMapViewer().setPath(path);
         //new Thread(simulation::run).start();
         //MapViewerTest.testJX();
     }
