@@ -72,6 +72,7 @@ public class MapViewer {
         mapViewer.addMouseListener(new CenterMapListener(mapViewer));
 
         mapViewer.addMouseWheelListener(new ZoomMouseWheelListenerCursor(mapViewer));
+        mapViewer.addMouseWheelListener((event) -> mapViewer.repaint());
 
         mapViewer.addKeyListener(new PanKeyListener(mapViewer));
 
@@ -205,7 +206,18 @@ public class MapViewer {
         waypointPainter.setWaypoints(pointSet);
     }
 
-    public void setPath(List<TNode> list) {
+    public void setNodeSet(HashSet<TNode> nodes) {
+        Set<MyWaypoint> pointSet = new HashSet<MyWaypoint>();
+
+        //Adds each way node into our Set for painting
+        nodes.forEach(node -> {
+                GeoPosition nodePos = new GeoPosition(node.getLat(), node.getLon());
+                pointSet.add(new MyWaypoint("", Color.WHITE, nodePos));
+        });
+        waypointPainter.setWaypoints(pointSet);
+    }
+
+    public void setPath(List<List<TNode>> list) {
         pathPainter.setPath(list);
         mapViewer.repaint();
     }

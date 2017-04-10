@@ -16,7 +16,7 @@ import java.util.List;
 public class PathPainter implements Painter<JXMapViewer> {
 
     private JXMapViewer viewer;
-    private List<TNode> path;
+    private List<List<TNode>> path;
 
     public PathPainter(JXMapViewer viewer) {
         this.viewer = viewer;
@@ -32,14 +32,16 @@ public class PathPainter implements Painter<JXMapViewer> {
         g.setColor(Color.CYAN);
         g.setStroke(new BasicStroke(5));
         for (int i = 0; i < path.size() - 1; i ++) {
-            Point2D startPoint = viewer.getTileFactory().geoToPixel(path.get(i).getGeoPosition(), viewer.getZoom());
-            Point2D endPoint = viewer.getTileFactory().geoToPixel(path.get(i + 1).getGeoPosition(), viewer.getZoom());
+            for (int j = 0; j < path.get(i).size() - 1; j++) {
+                Point2D startPoint = viewer.getTileFactory().geoToPixel(path.get(i).get(j).getGeoPosition(), viewer.getZoom());
+                Point2D endPoint = viewer.getTileFactory().geoToPixel(path.get(i).get(j + 1).getGeoPosition(), viewer.getZoom());
 
-            g.drawLine((int) startPoint.getX(), (int) startPoint.getY(), (int) endPoint.getX(), (int) endPoint.getY());
+                g.drawLine((int) startPoint.getX(), (int) startPoint.getY(), (int) endPoint.getX(), (int) endPoint.getY());
+            }
         }
     }
 
-    public void setPath(List<TNode> path) {
+    public void setPath(List<List<TNode>> path) {
         this.path = path;
     }
 }

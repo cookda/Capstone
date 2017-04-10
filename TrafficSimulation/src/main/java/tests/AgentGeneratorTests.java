@@ -14,6 +14,11 @@ public class AgentGeneratorTests {
         System.out.println("Generated " + amount + " agents");
     }
 
+    public static void testRandomGenerator1(int amount) {
+        new AgentGenerator().randomAgentGenerator1(amount);
+        System.out.println("Generated " + amount + " agents");
+    }
+
     public static void listAgents() {
         System.out.println("Agent listing");
         AgentPool.getInstance().getAgentList().forEach(agent -> {

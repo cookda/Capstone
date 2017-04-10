@@ -6,6 +6,9 @@ import org.jxmapviewer.viewer.GeoPosition;
 import vehicle.VehicleType;
 
 import java.lang.Math;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Wayne on 3/5/2017.
  */
@@ -18,12 +21,14 @@ public class Agent {
     private GeoPosition geoPosition;
     private Pair<GeoPosition, GeoPosition> trip;
     private VehicleType vehicleType;
+    private List<TNode> path;
 
     public Agent(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
         geoPosition = new GeoPosition(latitude, longitude);
         vehicleType = VehicleType.CAR;
+        path = new ArrayList<>();
     }
 
     public Agent(GeoPosition start, GeoPosition end) {
@@ -84,5 +89,13 @@ public class Agent {
         double a = Math.pow(Math.sin(disLat/2),2) + Math.pow(Math.sin(disLon / 2),2) * Math.cos(latStart) * Math.cos(latEnd);
         double c = 2 * Math.asin(Math.sqrt(a));
         return R * c;
+    }
+
+    public void setPath(List<TNode> path) {
+        this.path = path;
+    }
+
+    public List<TNode> getPath() {
+        return path;
     }
 }

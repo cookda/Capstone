@@ -10,7 +10,7 @@ public class Simulation {
     private TimeSystem timeSystem;
     private AgentPool agentPool;
     private MapViewer viewer;
-    private boolean running = true;
+    private boolean running = false;
 
     public Simulation(MapViewer viewer) {
         timeSystem = TimeSystem.getInstance();
@@ -27,6 +27,7 @@ public class Simulation {
                 agent.setGeoPosition(agent.getTrip().getKey());
             }
         }
+        timeSystem.stepRan();
         viewer.getMapViewer().repaint();
     }
 
@@ -44,7 +45,13 @@ public class Simulation {
     public void run() {
         while (running) {
             runStep();
-            timeSystem.stepRan();
+        }
+    }
+
+    public void toggleRun() {
+        running = !running;
+        if (running) {
+            new Thread(this::run).start();
         }
     }
 }

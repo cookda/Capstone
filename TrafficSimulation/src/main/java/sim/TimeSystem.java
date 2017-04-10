@@ -5,8 +5,8 @@ package sim;
  */
 public class TimeSystem {
 
-    private long time;
-    private double timeSpeed = 1; //This can be set to 0.75, 1.25, 1.5, etc to provide a faster/slower simulation.
+    private double time;
+    private double timeSpeed = 1;
     private final static TimeSystem instance = new TimeSystem();
 
     private TimeSystem() {
@@ -27,11 +27,11 @@ public class TimeSystem {
         }
     }
 
-    public long getTime() {
+    public double getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(double time) {
         this.time = time;
     }
 

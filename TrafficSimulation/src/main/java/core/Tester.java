@@ -33,7 +33,6 @@ public class Tester {
             double y = way.getNodes().get(0).getLon();
             AgentPool.getInstance().addAgent(new Agent(x, y));
         });
-        SimFrame sf = new SimFrame();
         //MapViewerTest.testJX();
     }
 }

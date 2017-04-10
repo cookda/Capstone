@@ -118,5 +118,6 @@ public class FancyWaypointRenderer implements WaypointRenderer<MyWaypoint>
 
         g.dispose();
     }
+
 }
 

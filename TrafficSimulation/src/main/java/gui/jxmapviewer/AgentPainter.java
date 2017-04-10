@@ -66,7 +66,7 @@ public class AgentPainter implements Painter<JXMapViewer> {
         return y - (carImage.getHeight() / 2);
     }
 
-    private int getScaled(int val, int zoom) {
-        return val; /// (zoom + 1);
+    private int getScaled(double val, double zoom) {
+        return (int) (val - (zoom * 1.5)); /// (zoom + 1);
     }
 }

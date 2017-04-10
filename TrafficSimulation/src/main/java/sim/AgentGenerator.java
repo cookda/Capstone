@@ -3,6 +3,7 @@ package sim;
 import core.UserMap;
 import core.UserProfile;
 import nodes.impl.TNode;
+import org.jxmapviewer.viewer.GeoPosition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,34 @@ public class AgentGenerator {
         pool = AgentPool.getInstance();
         userProfile = UserProfile.getInstance();
         userMap = userProfile.getMap();
+    }
+
+    public void randomAgentGenerator1(int amount) {
+        List<TNode> nodeList = new ArrayList<>();
+        double bound = 0.005;
+        userProfile.getWayMap().values().forEach(way ->
+            way.getNodes().forEach(node -> {
+                double dist = euclideanDistanceToCenter(node.getGeoPosition());
+                if (dist > bound) {
+                    nodeList.add(node);
+                }
+            })
+        );
+        List<TNode> invertedList = new ArrayList<>();
+        for (int i = nodeList.size() - 1; i > 0; i--) {
+            invertedList.add(nodeList.get(i));
+        }
+
+        for (int i = 0; i < amount; i++) {
+            pool.addAgent(new Agent(nodeList.get(i), invertedList.get(i)));
+        }
+    }
+
+    private double euclideanDistanceToCenter(GeoPosition node) {
+        double latDist = Math.abs(node.getLatitude() - userMap.getLatitude());
+        double lonDist = Math.abs(node.getLongitude() - userMap.getLongitude());
+;
+        return Math.sqrt(Math.pow(latDist, 2) + Math.pow(lonDist, 2));
     }
 
     public void randomAgentGenerator(int amount) {
