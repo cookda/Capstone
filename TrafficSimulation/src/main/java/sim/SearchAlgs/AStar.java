@@ -19,12 +19,15 @@ public class AStar extends SearchAlg{
     Pair<GeoPosition, GeoPosition> trip;
     TNode start;
     TNode end;
+    ArrayList<TNode> open = new ArrayList<TNode>(); //both the open and closed are used in get Path (A*)
+    ArrayList<TNode> closed = new ArrayList<TNode>();
 
     public double searchDistance(){return 0.0;}
 
     public AStar(HashSet<TNode> graph, Agent agent){
         this.graph = graph;
         trip = agent.getTrip();
+        findTripNodes();
     }
 
     public void findTripNodes(){
@@ -50,28 +53,17 @@ public class AStar extends SearchAlg{
      * to the current node and take the best one according to distance to the goal node.
      */
     public ArrayList<TNode> getPath(){
-        LinkedList<TNode> open = new LinkedList<TNode>();
-        LinkedList<TNode> closed = new LinkedList<TNode>();
         ArrayList<TNode> path = new ArrayList<TNode>();
         TNode current = start;
-        TNode bestNode = start;
-        boolean finished = false;
-        double bestDistance = Double.POSITIVE_INFINITY;
-        open.add(start);
-        ArrayList<TNode> adjacent = getAdjacent(start);
-        while (!finished){
-            for (int i = 0; i < adjacent.size(); i++) {
-                double cost = determineCost(current, adjacent.get(i));
-                cost += Agent.haverSine(current.getLat(), current.getLon(), end.getLat(), end.getLon());
-                if (cost < bestDistance) {
-                    bestDistance = cost;
-                    bestNode = adjacent.get(i);
-                }
-            }
-            current = bestNode;
-            path.add(bestNode);
-            if (current.getLat() == end.getLat() && current.getLon() == end.getLon()){
-                finished = true;
+        open.add(current);
+        path.add(start);
+        while(!open.isEmpty()){
+            TNode nextNode = determineNode(current);
+            open.add(nextNode);
+            path.add(nextNode);
+            current = nextNode;
+            if(nextNode == end){
+                break;
             }
         }
         return path;
@@ -85,6 +77,21 @@ public class AStar extends SearchAlg{
         return end;
     }
 
+    private TNode determineNode(TNode current){
+        ArrayList<TNode> adj = getAdjacent(current);
+        TNode nextNode = null;
+        double cost = Double.MAX_VALUE;
+        for(int i = 0; i < adj.size(); i++) {
+            double newCost = 0.0;
+            newCost = Graph.getDistance(current, adj.get(i));
+            newCost += Graph.getDistance(adj.get(i), end);
+            if (newCost < cost) {
+                cost = newCost;
+                nextNode = adj.get(i);
+            }
+        }
+        return nextNode;
+    }
     private ArrayList<TNode> getAdjacent(TNode start){
         ArrayList<TNode> adj = new ArrayList<TNode>();
         for(Edge e: start.getEdges()){
@@ -93,7 +100,7 @@ public class AStar extends SearchAlg{
         return adj;
     }
 
-    private double determineCost(TNode current, TNode nextNode){
+    private double calcDistance(TNode current, TNode nextNode){
         for(Edge e: current.getEdges()){
             double latCur = e.getEnd().getLat();
             double lonCur = e.getEnd().getLon();

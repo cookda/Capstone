@@ -30,8 +30,8 @@ public class PathPainter implements Painter<JXMapViewer> {
         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
         g.setColor(Color.CYAN);
-        g.setStroke(new BasicStroke());
-        for (int i = 0; i < path.size(); i += 2) {
+        g.setStroke(new BasicStroke(5));
+        for (int i = 0; i < path.size() - 1; i ++) {
             Point2D startPoint = viewer.getTileFactory().geoToPixel(path.get(i).getGeoPosition(), viewer.getZoom());
             Point2D endPoint = viewer.getTileFactory().geoToPixel(path.get(i + 1).getGeoPosition(), viewer.getZoom());
 

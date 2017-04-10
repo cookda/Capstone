@@ -20,7 +20,7 @@ public class Graph {
     private ArrayList<TNode> ways;
     private HashSet<TNode> graph;
     private HashSet<Edge> edges;
-
+    private HashSet<Edge> edges2;
 
     public static Graph getInstance(){
         if(instance == null){
@@ -34,6 +34,7 @@ public class Graph {
         wayMap = um.getWayMap();
         nodeMap = um.getNodeMap();
         edges = new HashSet<>();
+        edges2 = new HashSet<>();
         graph = new HashSet<>();
     }
 
@@ -48,11 +49,12 @@ public class Graph {
                 TNode right = ways.get(i + 1);
                 double distance = getDistance(left, right);
                 Edge e = new Edge(distance, left, right);
-                if (!edges.contains(e)){
+                Edge e2 = new Edge(distance, right, left);
+                /*if (!edges.contains(e)){
                     edges.add(e);
-                }
+                }*/
                 left.addEdge(e);
-                right.addEdge(e);
+                right.addEdge(e2);
 
                 if (!graph.contains(left)) {
                     graph.add(left);
@@ -64,7 +66,7 @@ public class Graph {
         });
     }
 
-    public double getDistance(TNode one, TNode two){
+    public static double getDistance(TNode one, TNode two){
         double latStart = one.getLat();
         double lonStart = one.getLon();
         double latEnd = two.getLat();

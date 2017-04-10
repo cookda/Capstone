@@ -27,7 +27,7 @@ public class Main {
                 new UserMap(
                         Constants.BOONE_SMALL_LAT,
                         Constants.BOONE_SMALL_LON,
-                        0.020
+                        0.0002
                 )
         );
         up.setCache(new CacheHandler());
@@ -35,9 +35,19 @@ public class Main {
         MapTest.basicTest();
         DomTest.getNodes();
         SimFrame sf = new SimFrame();
-        AgentGeneratorTests.testRandomGenerator(1);
+       // AgentGeneratorTests.testRandomGenerator(1);
+        List<TNode> startList = new ArrayList<>();
+        List<TNode> endList = new ArrayList<>();
+        up.getWayMap().values().forEach(way -> {
+            startList.add(way.getNodes().get(0));
+            endList.add(way.getNodes().get(way.getNodes().size() - 1));
+        });
+        TNode start = startList.get(0);
+        TNode end = endList.get(0);
+        Agent user = new Agent(start.getGeoPosition(), end.getGeoPosition());
         Simulation simulation = new Simulation(sf.getMapViewer());
         List<Agent> agents = AgentPool.getInstance().getAgentList();
+        agents.add(user);
         Agent agentPath = agents.get(0);
         Graph graph = Graph.getInstance();
         graph.buildGraph();
