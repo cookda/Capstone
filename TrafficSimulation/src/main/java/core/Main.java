@@ -38,7 +38,7 @@ public class Main {
         MapViewer mv = new MapViewer();
         Simulation simulation = new Simulation(mv);
         SimFrame sf = new SimFrame(simulation, mv);
-        AgentGeneratorTests.testRandomGenerator1(1);
+        AgentGeneratorTests.testRandomGenerator1(5);
 
         List<Agent> agents = AgentPool.getInstance().getAgentList();
 

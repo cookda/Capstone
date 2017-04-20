@@ -22,6 +22,7 @@ public class Agent {
     private Pair<GeoPosition, GeoPosition> trip;
     private VehicleType vehicleType;
     private List<TNode> path;
+    private int currPos = 0;
 
     public Agent(double latitude, double longitude) {
         this.latitude = latitude;
@@ -34,6 +35,14 @@ public class Agent {
     public Agent(GeoPosition start, GeoPosition end) {
         this(start.getLatitude(), start.getLongitude());
         trip = new Pair<>(start, end);
+    }
+
+    public int incrementPosition() {
+        return currPos++;
+    }
+
+    public boolean isDone() {
+        return path.get(currPos).getGeoPosition().equals(trip.getValue());
     }
 
     public Agent(TNode start, TNode end) {

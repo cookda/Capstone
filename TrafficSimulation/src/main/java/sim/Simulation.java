@@ -20,13 +20,11 @@ public class Simulation {
     }
 
     public void runStep() {
-        for (Agent agent : agentPool.getAgentList()) {
-            if (agent.getGeoPosition().equals(agent.getTrip().getKey())) {
-                agent.setGeoPosition(agent.getTrip().getValue());
-            } else {
-                agent.setGeoPosition(agent.getTrip().getKey());
+        agentPool.getAgentList().forEach(agent -> {
+            if (!agent.isDone()) {
+                agent.setGeoPosition(agent.getPath().get(agent.incrementPosition()).getGeoPosition());
             }
-        }
+        });
         timeSystem.stepRan();
         viewer.getMapViewer().repaint();
     }
