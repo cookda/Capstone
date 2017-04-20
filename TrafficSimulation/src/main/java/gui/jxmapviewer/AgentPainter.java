@@ -31,12 +31,16 @@ public class AgentPainter implements Painter<JXMapViewer> {
         ClassLoader cl = getClass().getClassLoader();
         URL resourceURL = cl.getResource("java/gui/jxmapviewer/agent.png");
         String resourcePath = resourceURL == null ? "Null" : resourceURL.getPath();
-        //System.out.println("Resource folder: " + resourcePath);
+        System.out.println("Resource folder: " + resourcePath);
         try {
             carImage = ImageIO.read(new File(resourcePath));
         } catch (Exception e) {
-            System.out.println("Couldn't get the image for the car agents");
-            System.out.println(e.getMessage());
+            try {
+                carImage = ImageIO.read(new File(Constants.IMAGE_DIR + "/agent.png"));
+            } catch (Exception ex) {
+                System.out.println("Couldn't get the image for the car agents");
+                System.out.println(ex.getMessage());
+            }
         }
     }
 

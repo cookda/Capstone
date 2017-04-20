@@ -21,6 +21,8 @@ public class AStar extends SearchAlg{
     TNode end;
     ArrayList<TNode> open = new ArrayList<TNode>(); //both the open and closed are used in get Path (A*)
     ArrayList<TNode> closed = new ArrayList<TNode>();
+    private List<TNode> adj;
+    private TNode nextNode;
 
     public double searchDistance(){return 0.0;}
 
@@ -78,10 +80,10 @@ public class AStar extends SearchAlg{
     }
 
     private TNode determineNode(TNode current){
-        ArrayList<TNode> adj = getAdjacent(current);
-        TNode nextNode = null;
+        adj = getAdjacent(current);
+        nextNode = null;
         double cost = Double.MAX_VALUE;
-        for(int i = 0; i < adj.size(); i++) {
+        for (int i = 0; i < adj.size(); i++) {
             double newCost = 0.0;
             newCost = Graph.getDistance(current, adj.get(i));
             newCost += Graph.getDistance(adj.get(i), end);

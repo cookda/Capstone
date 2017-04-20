@@ -38,11 +38,10 @@ public class Main {
         MapViewer mv = new MapViewer();
         Simulation simulation = new Simulation(mv);
         SimFrame sf = new SimFrame(simulation, mv);
-        AgentGeneratorTests.testRandomGenerator1(20);
+        AgentGeneratorTests.testRandomGenerator1(1);
 
         List<Agent> agents = AgentPool.getInstance().getAgentList();
 
-        /*
         Graph graph = Graph.getInstance();
         graph.buildGraph();
         agents.forEach(agent -> {
@@ -53,7 +52,14 @@ public class Main {
 
         List<List<TNode>> bigOlList = new ArrayList<>();
         agents.forEach(agent -> bigOlList.add(agent.getPath()));
-        */
+
+        mv.setPath(bigOlList);
+        Agent tester = AgentPool.getInstance().getAgentList().get(0);
+        tester.getPath().forEach(System.out::println);
+        System.out.println(tester.getTrip().getKey());
+        System.out.println(tester.getTrip().getValue());
+
+        System.out.println("Set the path");
 
         //new Thread(simulation::run).start();
         //MapViewerTest.testJX();
