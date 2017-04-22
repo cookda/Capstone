@@ -101,7 +101,7 @@ public class AStar extends SearchAlg{
         }
         GraphPath<TNode, DefaultEdge> answer = path.getPath(start, end);
         List<TNode> hopeIsNotLost = answer.getVertexList();
-        TNode[] pathAnswer = (TNode[])hopeIsNotLost.toArray();
+        TNode[] pathAnswer = hopeIsNotLost.toArray(new TNode[hopeIsNotLost.size()]);
         return pathAnswer;
         /*TNode current = start;
         open.add(current);
