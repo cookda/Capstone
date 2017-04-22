@@ -93,7 +93,7 @@ public class AStar extends SearchAlg{
 
 
 
-        AStarShortestPath path = new AStarShortestPath(graph, heuristic);
+        AStarShortestPath<TNode, DefaultEdge> path = new AStarShortestPath<>(graph, heuristic);
         System.out.println(start.getId());
         System.out.println(end.getId());
         for(TNode node : graph.vertexSet()){
@@ -101,8 +101,7 @@ public class AStar extends SearchAlg{
         }
         GraphPath<TNode, DefaultEdge> answer = path.getPath(start, end);
         List<TNode> hopeIsNotLost = answer.getVertexList();
-        TNode[] pathAnswer = hopeIsNotLost.toArray(new TNode[hopeIsNotLost.size()]);
-        return pathAnswer;
+        return hopeIsNotLost.toArray(new TNode[hopeIsNotLost.size()]);
         /*TNode current = start;
         open.add(current);
         path.add(start);

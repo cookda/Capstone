@@ -49,16 +49,14 @@ public class Main {
             AStar algo = new AStar(agent);
             algo.findTripNodes();
             agent.setPath(Arrays.asList(algo.getPath()));
+            System.out.println("Printing agent path:");
+            agent.getPath().forEach(System.out::println);
         });
 
         List<List<TNode>> bigOlList = new ArrayList<>();
         agents.forEach(agent -> bigOlList.add(agent.getPath()));
 
         mv.setPath(bigOlList);
-        Agent tester = AgentPool.getInstance().getAgentList().get(0);
-        tester.getPath().forEach(System.out::println);
-        System.out.println(tester.getTrip().getKey());
-        System.out.println(tester.getTrip().getValue());
 
         System.out.println("Set the path");
 

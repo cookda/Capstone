@@ -42,7 +42,7 @@ public class Agent {
     }
 
     public boolean isDone() {
-        return path.get(currPos).getGeoPosition().equals(trip.getValue());
+        return path.size() > 0 && path.get(currPos).getGeoPosition().equals(trip.getValue());
     }
 
     public Agent(TNode start, TNode end) {
