@@ -29,7 +29,7 @@ public class Main {
                 new UserMap(
                         Constants.BOONE_SMALL_LAT,
                         Constants.BOONE_SMALL_LON,
-                        0.002
+                        0.005
                 )
         );
         up.setCache(new CacheHandler());
@@ -49,8 +49,6 @@ public class Main {
             AStar algo = new AStar(agent);
             algo.findTripNodes();
             agent.setPath(Arrays.asList(algo.getPath()));
-            System.out.println("Printing agent path:");
-            agent.getPath().forEach(System.out::println);
         });
 
         List<List<TNode>> bigOlList = new ArrayList<>();
