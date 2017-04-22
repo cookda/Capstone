@@ -3,39 +3,44 @@ package sim.SearchAlgs;
 import core.UserProfile;
 import nodes.impl.TNode;
 import nodes.impl.Way;
+import org.jgrapht.Graph;
+import org.jgrapht.alg.interfaces.AStarAdmissibleHeuristic;
 import sim.Agent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
+import org.jgrapht.graph.*;
 
 /**
  * Created by Dalton on 3/24/2017.
  */
-public class Graph {
+public class GraphSim {
     private HashMap<Long, Way> wayMap;
     private HashMap<Long, TNode> nodeMap;
-    private static Graph instance;
+    private static GraphSim instance;
     private ArrayList<TNode> ways;
-    private HashSet<TNode> graph;
+    private Graph<TNode, DefaultEdge> graph;
     private HashSet<Edge> edges;
     private HashSet<Edge> edges2;
 
-    public static Graph getInstance(){
+    public static GraphSim getInstance(){
         if(instance == null){
-            instance = new Graph();
+            instance = new GraphSim();
         }
         return instance;
     }
 
-    private Graph() {
+    private GraphSim
+            () {
         UserProfile um = UserProfile.getInstance();
         wayMap = um.getWayMap();
         nodeMap = um.getNodeMap();
         edges = new HashSet<>();
         edges2 = new HashSet<>();
-        graph = new HashSet<>();
+        graph = new SimpleGraph<TNode, DefaultEdge>(DefaultEdge.class);
+        buildGraph();
     }
 
     /**
@@ -47,21 +52,24 @@ public class Graph {
             for (int i = 0; i < ways.size() - 1; i++){
                 TNode left = ways.get(i);
                 TNode right = ways.get(i + 1);
-                double distance = getDistance(left, right);
-                Edge e = new Edge(distance, left, right);
-                Edge e2 = new Edge(distance, right, left);
+                //double distance = getDistance(left, right);
+                //Edge e = new Edge(distance, left, right);
+                //Edge e2 = new Edge(distance, right, left);
                 /*if (!edges.contains(e)){
                     edges.add(e);
                 }*/
-                left.addEdge(e);
-                right.addEdge(e2);
+                graph.addVertex(left);
+                graph.addVertex(right);
+                graph.addEdge(left, right);
+                //left.addEdge(e);
+                //right.addEdge(e2);
 
-                if (!graph.contains(left)) {
+                /*if (!graph.contains(left)) {
                     graph.add(left);
                 }
                 if(!graph.contains(right)){
                     graph.add(right);
-                }
+                }*/
             }
         });
     }
@@ -74,7 +82,7 @@ public class Graph {
         return Agent.haverSine(latStart, lonStart, latEnd, lonEnd);
     }
 
-    public HashSet<TNode> getGraph(){
+    public Graph<TNode, DefaultEdge> getGraph(){
         return graph;
     }
 }

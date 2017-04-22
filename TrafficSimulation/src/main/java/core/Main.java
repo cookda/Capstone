@@ -7,13 +7,14 @@ import nodes.impl.TNode;
 import sim.Agent;
 import sim.AgentPool;
 import sim.SearchAlgs.AStar;
-import sim.SearchAlgs.Graph;
+//import sim.SearchAlgs.Graph;
 import sim.Simulation;
 import tests.AgentGeneratorTests;
 import tests.DomTest;
 import tests.MapTest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ public class Main {
                 new UserMap(
                         Constants.BOONE_SMALL_LAT,
                         Constants.BOONE_SMALL_LON,
-                        0.0005
+                        0.002
                 )
         );
         up.setCache(new CacheHandler());
@@ -42,12 +43,12 @@ public class Main {
 
         List<Agent> agents = AgentPool.getInstance().getAgentList();
 
-        Graph graph = Graph.getInstance();
-        graph.buildGraph();
+        //Graph graph = Graph.getInstance();
+        //graph.buildGraph();
         agents.forEach(agent -> {
-            AStar algo = new AStar(graph.getGraph(), agent);
+            AStar algo = new AStar(agent);
             algo.findTripNodes();
-            agent.setPath(algo.getPath());
+            agent.setPath(Arrays.asList(algo.getPath()));
         });
 
         List<List<TNode>> bigOlList = new ArrayList<>();

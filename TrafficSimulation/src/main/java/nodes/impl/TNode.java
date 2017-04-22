@@ -68,4 +68,6 @@ public class TNode implements Serializable {
     public String toString() {
         return "ID: " + id + " - Latitude: " + lat + " - Longitude: " + lon;
     }
+
+
 }
