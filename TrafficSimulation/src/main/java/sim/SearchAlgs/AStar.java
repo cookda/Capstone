@@ -73,9 +73,8 @@ public class AStar extends SearchAlg{
      * to the current node and take the best one according to distance to the goal node.
      */
     public TNode[] getPath(){
-        AStarAdmissibleHeuristic<TNode> heuristic = new AStarAdmissibleHeuristic<TNode>() {
-            @Override
-            public double getCostEstimate(TNode tNode, TNode v1) {
+
+        AStarShortestPath<TNode, DefaultEdge> path = new AStarShortestPath<>(graph, ((tNode, v1) -> {
                 double R = 6372.8;
                 double lonEnd = v1.getLon();
                 double lonStart = tNode.getLon();
@@ -88,12 +87,9 @@ public class AStar extends SearchAlg{
                 double a = Math.pow(Math.sin(disLat/2),2) + Math.pow(Math.sin(disLon / 2),2) * Math.cos(latStart) * Math.cos(latEnd);
                 double c = 2 * Math.asin(Math.sqrt(a));
                 return R * c;
-            }
-        };
+            })
+        );
 
-
-
-        AStarShortestPath<TNode, DefaultEdge> path = new AStarShortestPath<>(graph, heuristic);
         System.out.println(start.getId());
         System.out.println(end.getId());
         for(TNode node : graph.vertexSet()){
