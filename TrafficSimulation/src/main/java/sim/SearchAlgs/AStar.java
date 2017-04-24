@@ -66,7 +66,10 @@ public class AStar extends SearchAlg{
         );
 
         GraphPath<TNode, DefaultEdge> answer = path.getPath(start, end);
-        List<TNode> hopeIsNotLost = answer.getVertexList();
-        return hopeIsNotLost.toArray(new TNode[hopeIsNotLost.size()]);
+        if (answer != null) {
+            List<TNode> hopeIsNotLost = answer.getVertexList();
+            return hopeIsNotLost.toArray(new TNode[hopeIsNotLost.size()]);
+        }
+        return new TNode[] {};
     }
 }
