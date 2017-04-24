@@ -21,7 +21,7 @@ public class TimeSystem {
     public void stepRan() {
         time += timeSpeed;
         try {
-            Thread.sleep((long) (100/timeSpeed));
+            Thread.sleep((long) (1000 / timeSpeed));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

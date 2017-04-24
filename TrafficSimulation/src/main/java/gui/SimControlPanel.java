@@ -38,8 +38,11 @@ public class SimControlPanel extends JPanel {
 
         JLabel lblSimulationSpeed = new JLabel("Simulation Speed: " + timeSystem.getTimeSpeed());
         JSlider speedSlider = new JSlider();
+        speedSlider.setMinimum(1);
+        speedSlider.setMaximum(10000);
+        speedSlider.setValue(1000);
         speedSlider.addChangeListener(change -> {
-            timeSystem.setTimeSpeed((double) speedSlider.getValue() / 50);
+            timeSystem.setTimeSpeed((double) speedSlider.getValue() / 1000);
             lblSimulationSpeed.setText("Simulation Speed: " + timeSystem.getTimeSpeed());
         });
 

@@ -29,7 +29,7 @@ public class Main {
                 new UserMap(
                         Constants.BOONE_SMALL_LAT,
                         Constants.BOONE_SMALL_LON,
-                        0.005
+                        0.035
                 )
         );
         up.setCache(new CacheHandler());
@@ -39,7 +39,7 @@ public class Main {
         MapViewer mv = new MapViewer();
         Simulation simulation = new Simulation(mv);
         SimFrame sf = new SimFrame(simulation, mv);
-        AgentGeneratorTests.testRandomGenerator1(5);
+        AgentGeneratorTests.testRandomGenerator1(100);
 
         List<Agent> agents = AgentPool.getInstance().getAgentList();
 

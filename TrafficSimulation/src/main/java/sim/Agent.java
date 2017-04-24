@@ -8,6 +8,7 @@ import vehicle.VehicleType;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Wayne on 3/5/2017.
@@ -23,6 +24,7 @@ public class Agent {
     private VehicleType vehicleType;
     private List<TNode> path;
     private int currPos = 0;
+    private int speed;
 
     public Agent(double latitude, double longitude) {
         this.latitude = latitude;
@@ -30,12 +32,41 @@ public class Agent {
         geoPosition = new GeoPosition(latitude, longitude);
         vehicleType = VehicleType.CAR;
         path = new ArrayList<>();
+        speed = ThreadLocalRandom.current().nextInt(20, 50);
     }
 
     public Agent(GeoPosition start, GeoPosition end) {
         this(start.getLatitude(), start.getLongitude());
         trip = new Pair<>(start, end);
     }
+
+    public void advancePosition() {
+        GeoPosition startPos = path.get(currPos++).getGeoPosition();
+        GeoPosition endPos = path.get(currPos).getGeoPosition();
+        double dist = haverSine(startPos, endPos);
+
+        dist *= (60/speed);
+
+        setGeoPosition(nextPosition(startPos, endPos, dist));
+
+    }
+
+    private GeoPosition nextPosition(GeoPosition start, GeoPosition end, double distance) {
+        return add(multiply(subtract(end, start), distance), start);
+    }
+
+    private GeoPosition multiply(GeoPosition a, double b) {
+        return new GeoPosition(a.getLatitude() * b, a.getLongitude() * b);
+    }
+
+    private GeoPosition subtract(GeoPosition a, GeoPosition b) {
+        return new GeoPosition(a.getLatitude() - b.getLatitude(), a.getLongitude() - b.getLongitude());
+    }
+
+    private GeoPosition add(GeoPosition a, GeoPosition b) {
+        return new GeoPosition(a.getLatitude() + b.getLatitude(), a.getLongitude() + b.getLongitude());
+    }
+
 
     public int incrementPosition() {
         return currPos++;
@@ -98,6 +129,10 @@ public class Agent {
         double a = Math.pow(Math.sin(disLat/2),2) + Math.pow(Math.sin(disLon / 2),2) * Math.cos(latStart) * Math.cos(latEnd);
         double c = 2 * Math.asin(Math.sqrt(a));
         return R * c;
+    }
+
+    private double haverSine(GeoPosition one, GeoPosition two) {
+        return haverSine(one.getLatitude(), one.getLongitude(), two.getLatitude(), two.getLongitude());
     }
 
     public void setPath(List<TNode> path) {

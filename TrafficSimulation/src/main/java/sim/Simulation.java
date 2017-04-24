@@ -22,7 +22,8 @@ public class Simulation {
     public void runStep() {
         agentPool.getAgentList().forEach(agent -> {
             if (!agent.isDone()) {
-                agent.setGeoPosition(agent.getPath().get(agent.incrementPosition()).getGeoPosition());
+                //agent.setGeoPosition(agent.getPath().get(agent.incrementPosition()).getGeoPosition());
+                agent.advancePosition();
             }
         });
         timeSystem.stepRan();
