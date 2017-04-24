@@ -29,7 +29,7 @@ public class Main {
                 new UserMap(
                         Constants.BOONE_SMALL_LAT,
                         Constants.BOONE_SMALL_LON,
-                        0.035
+                        0.020
                 )
         );
         up.setCache(new CacheHandler());

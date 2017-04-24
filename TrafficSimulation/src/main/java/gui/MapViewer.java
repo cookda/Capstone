@@ -108,9 +108,9 @@ public class MapViewer {
         pathPainter = new PathPainter(mapViewer);
 
         compoundPainter = new CompoundPainter<>();
+        compoundPainter.addPainter(pathPainter);
         compoundPainter.addPainter(agentPainter);
         compoundPainter.addPainter(infoPainter);
-        compoundPainter.addPainter(pathPainter);
 
 
         mapViewer.setOverlayPainter(compoundPainter);
