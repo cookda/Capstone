@@ -40,6 +40,11 @@ public class Agent {
         trip = new Pair<>(start, end);
     }
 
+    public void reset() {
+        setGeoPosition(trip.getKey());
+        currPos = 0;
+    }
+
     public void advancePosition() {
         GeoPosition startPos = path.get(currPos++).getGeoPosition();
         GeoPosition endPos = path.get(currPos).getGeoPosition();

@@ -27,6 +27,10 @@ public class TimeSystem {
         }
     }
 
+    public void reset() {
+        time = 0;
+    }
+
     public double getTime() {
         return time;
     }

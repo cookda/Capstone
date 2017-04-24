@@ -29,7 +29,7 @@ public class SimFrame extends JFrame {
 
 
         JPanel controlPanel = new ControlPanel(mv);
-        JPanel SimPanel = new SimControlPanel(sim);
+        JPanel SimPanel = new SimControlPanel(sim, mv);
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
                 gl_contentPane.createParallelGroup(Alignment.LEADING)

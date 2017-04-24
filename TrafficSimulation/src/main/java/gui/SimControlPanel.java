@@ -1,5 +1,7 @@
 package gui;
 
+import sim.Agent;
+import sim.AgentPool;
 import sim.Simulation;
 import sim.TimeSystem;
 
@@ -15,11 +17,12 @@ public class SimControlPanel extends JPanel {
 
     private Simulation sim;
     private TimeSystem timeSystem;
+    private MapViewer mv;
 
     /**
      * Create the panel.
      */
-    public SimControlPanel(Simulation sim) {
+    public SimControlPanel(Simulation sim, MapViewer mv) {
         this.sim = sim;
         timeSystem = TimeSystem.getInstance();
 
@@ -46,6 +49,13 @@ public class SimControlPanel extends JPanel {
             lblSimulationSpeed.setText("Simulation Speed: " + timeSystem.getTimeSpeed());
         });
 
+        JButton restartButton = new JButton("Restart");
+        restartButton.addActionListener((ev) -> {
+            AgentPool.getInstance().getAgentList().forEach(Agent::reset);
+            timeSystem.reset();
+            mv.getMapViewer().repaint();
+    });
+
         GroupLayout groupLayout = new GroupLayout(this);
         groupLayout.setHorizontalGroup(
                 groupLayout.createParallelGroup(Alignment.LEADING)
@@ -54,6 +64,7 @@ public class SimControlPanel extends JPanel {
                                 .addComponent(btnStart, GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                                 .addGap(35))
                                 .addComponent(runStepButton, GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                                .addComponent(restartButton, GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                         .addGroup(groupLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -70,6 +81,8 @@ public class SimControlPanel extends JPanel {
                                 .addComponent(btnStart)
                                 .addPreferredGap(ComponentPlacement.RELATED)
                                 .addComponent(runStepButton)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(restartButton)
                                 .addPreferredGap(ComponentPlacement.RELATED)
                                 .addComponent(lblSimulationSpeed)
                                 .addPreferredGap(ComponentPlacement.RELATED)
