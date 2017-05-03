@@ -1,17 +1,17 @@
 package core;
 
+import api.OSMGrabber;
 import cache.CacheHandler;
 import gui.MapViewer;
 import gui.SimFrame;
 import nodes.impl.TNode;
+import parser.SortData;
 import sim.Agent;
+import sim.AgentGenerator;
 import sim.AgentPool;
 import sim.SearchAlgs.AStar;
-//import sim.SearchAlgs.Graph;
 import sim.Simulation;
 import tests.AgentGeneratorTests;
-import tests.DomTest;
-import tests.MapTest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +22,7 @@ import java.util.List;
  */
 public class Main {
 
+    private static MapViewer mv;
 
     public static void main(String[] args) {
         UserProfile up = UserProfile.getInstance();
@@ -29,22 +30,39 @@ public class Main {
                 new UserMap(
                         Constants.BOONE_SMALL_LAT,
                         Constants.BOONE_SMALL_LON,
-                        0.020
+                        0.050
                 )
         );
         up.setCache(new CacheHandler());
 
-        MapTest.basicTest();
-        DomTest.getNodes();
-        MapViewer mv = new MapViewer();
-        Simulation simulation = new Simulation(mv);
-        SimFrame sf = new SimFrame(simulation, mv);
-        AgentGeneratorTests.testRandomGenerator(100);
+        acquireMap();
+        parse();
+        initGUI();
+        generateAgents(100, 1);
+        getPaths();
 
+    }
+
+    /**
+     * Generate some amount of agents with generator 0 or 1.
+     * @param amount - Agents to generate
+     * @param gen - Generator to use
+     */
+    private static void generateAgents(int amount, int gen) {
+        AgentGenerator generator = new AgentGenerator();
+        if (gen == 0) {
+            generator.randomAgentGenerator(amount); //Unstable
+        } else {
+            generator.randomAgentGenerator1(amount);
+        }
+    }
+
+    /**
+     * Acquire the paths for the agents and set them in the graphical representation
+     */
+    private static void getPaths() {
         List<Agent> agents = AgentPool.getInstance().getAgentList();
 
-        //Graph graph = Graph.getInstance();
-        //graph.buildGraph();
         agents.forEach(agent -> {
             AStar algo = new AStar(agent);
             algo.findTripNodes();
@@ -55,11 +73,37 @@ public class Main {
         agents.forEach(agent -> bigOlList.add(agent.getPath()));
 
         mv.setPath(bigOlList);
+    }
 
-        System.out.println("Set the path");
+    /**
+     * Initialize the graphical portions and the simulation
+     */
+    private static void initGUI() {
+        mv = new MapViewer();
+        new SimFrame(new Simulation(mv), mv);
+    }
 
-        //new Thread(simulation::run).start();
-        //MapViewerTest.testJX();
+    /**
+     * Acquire the map data and cache it
+     */
+    private static void acquireMap() {
+        OSMGrabber test = new OSMGrabber();
+        CacheHandler ch = UserProfile.getInstance().getCache();
+        if (!ch.isCached()) {
+            test.getArea();
+            ch.cacheArea();
+        } else {
+            System.out.println("Area cached");
+        }
+    }
+
+    /**
+     * Parse the map data
+     */
+    private static void parse() {
+        SortData sd = new SortData();
+        sd.readNodes();
+        sd.readWays();
     }
 
 

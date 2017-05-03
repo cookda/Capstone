@@ -15,9 +15,6 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Agent {
 
-    private double latitude;
-    private double longitude;
-    private double distance;
     private final static double R = 6372.8;
     private GeoPosition geoPosition;
     private Pair<GeoPosition, GeoPosition> trip;
@@ -27,8 +24,6 @@ public class Agent {
     private int speed;
 
     public Agent(double latitude, double longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
         geoPosition = new GeoPosition(latitude, longitude);
         vehicleType = VehicleType.CAR;
         path = new ArrayList<>();
@@ -56,6 +51,13 @@ public class Agent {
 
     }
 
+    /**
+     * Distance vector formula
+     * @param start - Start pos
+     * @param end - End pos
+     * @param distance - Distance to travel
+     * @return - End location
+     */
     private GeoPosition nextPosition(GeoPosition start, GeoPosition end, double distance) {
         return add(multiply(subtract(end, start), distance), start);
     }
@@ -72,33 +74,12 @@ public class Agent {
         return new GeoPosition(a.getLatitude() + b.getLatitude(), a.getLongitude() + b.getLongitude());
     }
 
-
-    public int incrementPosition() {
-        return currPos++;
-    }
-
     public boolean isDone() {
         return path.size() > 0 && path.get(currPos).getGeoPosition().equals(trip.getValue());
     }
 
     public Agent(TNode start, TNode end) {
         this(start.getGeoPosition(), end.getGeoPosition());
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
     }
 
     public GeoPosition getGeoPosition() {
@@ -111,14 +92,6 @@ public class Agent {
 
     public Pair<GeoPosition, GeoPosition> getTrip() {
         return trip;
-    }
-
-    public void setTrip(Pair<GeoPosition, GeoPosition> trip) {
-        this.trip = trip;
-    }
-
-    public VehicleType getType() {
-        return vehicleType;
     }
 
     @Override

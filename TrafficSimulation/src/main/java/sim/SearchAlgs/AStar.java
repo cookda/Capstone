@@ -19,7 +19,7 @@ import java.util.*;
  * Created by Dalton on 3/20/2017.
  * http://mat.uab.cat/~alseda/MasterOpt/AStar-Algorithm.pdf : PsuedoCode
  */
-public class AStar extends SearchAlg{
+public class AStar {
     private Graph<TNode, DefaultEdge> graph;
     private Pair<GeoPosition, GeoPosition> trip;
     private TNode start;

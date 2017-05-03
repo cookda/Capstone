@@ -23,14 +23,21 @@ public class PathPainter implements Painter<JXMapViewer> {
         path = new ArrayList<>();
     }
 
+    /**
+     * Draws the paths on the viewer.
+     * @param g - Graphics object of the viewer
+     * @param object - The viewer itself
+     * @param width - Width of viewport
+     * @param height - Height of viewport
+     */
     @Override
     public void paint(Graphics2D g, JXMapViewer object, int width, int height) {
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //Use anti-aliasing to draw the ways
-        g.translate(-viewer.getViewportBounds().x, -viewer.getViewportBounds().y); //Evil viewport hacks
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //Use anti-aliasing to draw the paths
+        g.translate(-viewer.getViewportBounds().x, -viewer.getViewportBounds().y);
         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
         g.setColor(Color.CYAN);
-        g.setStroke(new BasicStroke(2));
+        g.setStroke(new BasicStroke(1));
         for (int i = 0; i < path.size(); i++) {
             for (int j = 0; j < path.get(i).size() - 1; j++) {
                 Point2D startPoint = viewer.getTileFactory().geoToPixel(path.get(i).get(j).getGeoPosition(), viewer.getZoom());

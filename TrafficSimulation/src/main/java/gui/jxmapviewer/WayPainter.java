@@ -23,11 +23,18 @@ public class WayPainter implements Painter<JXMapViewer> {
         wayLines = new ArrayList<>();
     }
 
+    /**
+     * Paints each way (road) onto the viewer.
+     * @param graphics2D - Graphics object (from viewer)
+     * @param jxMapViewer - Viewer itself
+     * @param width - Width of viewport
+     * @param height - Height of viewport
+     */
     @Override
     public void paint(Graphics2D graphics2D, JXMapViewer jxMapViewer, int width, int height) {
 
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //Use anti-aliasing to draw the ways
-        graphics2D.translate(-viewer.getViewportBounds().x, -viewer.getViewportBounds().y); //Evil viewport hacks
+        graphics2D.translate(-viewer.getViewportBounds().x, -viewer.getViewportBounds().y);
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
         final Stroke basicStroke = new BasicStroke();

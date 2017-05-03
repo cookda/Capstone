@@ -18,6 +18,7 @@ public class SimFrame extends JFrame {
 
 
     public SimFrame(Simulation sim, MapViewer mv) {
+        this.mv = mv;
         setTitle("Traffic routing simulator");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -51,10 +52,9 @@ public class SimFrame extends JFrame {
         setVisible(true);
     }
 
-    public MapViewer getMapViewer() {
-        return mv;
-    }
-
+    /**
+     * Initialize the menu items
+     */
     private void initializeMenu() {
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
@@ -76,6 +76,9 @@ public class SimFrame extends JFrame {
         setJMenuBar(menuBar);
     }
 
+    /**
+     * Load the profile
+     */
     private void load() {
         int returnVal = jfc.showOpenDialog(this);
 
@@ -94,6 +97,9 @@ public class SimFrame extends JFrame {
         mv.getMapViewer().repaint();
     }
 
+    /**
+     * Save the profile
+     */
     private void save() {
         int returnVal = jfc.showSaveDialog(this);
 

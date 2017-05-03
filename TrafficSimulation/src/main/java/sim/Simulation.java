@@ -22,7 +22,6 @@ public class Simulation {
     public void runStep() {
         agentPool.getAgentList().forEach(agent -> {
             if (!agent.isDone() && agent.getPath().size() > 0) {
-                //agent.setGeoPosition(agent.getPath().get(agent.incrementPosition()).getGeoPosition());
                 agent.advancePosition();
             }
         });
@@ -30,17 +29,6 @@ public class Simulation {
         viewer.getMapViewer().repaint();
     }
 
-    /**
-     * In this method, we will do something along the following
-     * Increment time
-     * Get all agents from the UserProfile or whichever class stores them
-     * For each agent, retrieve a distance calculation based on their position and the direction they are traveling
-     * Store this calculated distance as the new position of the agent
-     * Send an update call to the renderer
-     * The renderer will then draw the new position of each agent
-     *
-     * The running boolean will be set to start/stop/etc based on the gui
-     */
     public void run() {
         while (running) {
             runStep();

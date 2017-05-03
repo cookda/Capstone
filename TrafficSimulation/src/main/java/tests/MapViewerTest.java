@@ -58,7 +58,6 @@ public class MapViewerTest {
         CacheHandler ch = UserProfile.getInstance().getCache();
         if (!ch.isCached()) {
             test.getArea();
-            test.getImage();
             ch.cacheArea();
         } else {
             System.out.println("Area cached");

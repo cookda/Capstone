@@ -31,6 +31,9 @@ public class OSMGrabber {
     }
 
 
+    /**
+     * Acquires the area from the API and stores it in the proper file/folder
+     */
     public void getArea() {
         try {
             double rad = um.getRadius();
@@ -69,30 +72,4 @@ public class OSMGrabber {
         }
     }
 
-    /**
-     * Now saves an image instead of returning
-     */
-    public void getImage() {
-        try {
-            URL imgUrl = new URL(Constants.IMG_URL + "lat=" + um.getLatitude() + "&lon=" + um.getLongitude() + "&zoom=" + um.getZoomLevel());
-            HttpURLConnection con = (HttpURLConnection) imgUrl.openConnection();
-            con.setRequestMethod("GET");
-
-            Image returned = ImageIO.read(con.getInputStream());
-
-            Path imgPath = Paths.get(Constants.IMAGE_DIR);
-            if (!Files.exists(imgPath)) {
-                Files.createDirectory(imgPath);
-            }
-
-            try {
-                ImageIO.write((BufferedImage) returned, "png", new File(imgPath + "/" + up.getMap().getImageName()));
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
 }

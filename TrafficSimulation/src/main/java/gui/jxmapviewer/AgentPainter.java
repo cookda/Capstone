@@ -25,9 +25,16 @@ public class AgentPainter implements Painter<JXMapViewer> {
     private AgentPool pool;
     private BufferedImage carImage;
 
+    private List<Agent> agents;
+
+    /**
+     * Initializes the viewport renderer and attempts to grab the agent image
+     * @param viewer
+     */
     public AgentPainter(JXMapViewer viewer) {
         this.viewer = viewer;
         pool = AgentPool.getInstance();
+        agents = pool.getAgentList();
         ClassLoader cl = getClass().getClassLoader();
         URL resourceURL = cl.getResource("java/gui/jxmapviewer/agent.png");
         String resourcePath = resourceURL == null ? "Null" : resourceURL.getPath();
@@ -44,10 +51,11 @@ public class AgentPainter implements Painter<JXMapViewer> {
         }
     }
 
+    /**
+     * Draws each agent at the appropriate spot
+     */
     @Override
     public void paint(Graphics2D g, JXMapViewer jxMapViewer, int width, int height) {
-
-        List<Agent> agents  = pool.getAgentList();
 
         g.translate(-viewer.getViewportBounds().x, -viewer.getViewportBounds().y);
         g = (Graphics2D) g.create();
@@ -71,6 +79,6 @@ public class AgentPainter implements Painter<JXMapViewer> {
     }
 
     private int getScaled(double val, double zoom) {
-        return (int) (val - (zoom * 1.5)); /// (zoom + 1);
+        return (int) (val - zoom);
     }
 }

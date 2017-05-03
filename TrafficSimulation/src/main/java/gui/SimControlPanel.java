@@ -17,7 +17,6 @@ public class SimControlPanel extends JPanel {
 
     private Simulation sim;
     private TimeSystem timeSystem;
-    private MapViewer mv;
 
     /**
      * Create the panel.

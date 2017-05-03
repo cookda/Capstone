@@ -55,6 +55,7 @@ public class ControlPanel extends JPanel {
         });
 
         JButton btnShowAgents = new JButton("Show agents");
+        btnShowAgents.setVisible(false);
 
         GroupLayout groupLayout = new GroupLayout(this);
         groupLayout.setHorizontalGroup(

@@ -24,6 +24,10 @@ public class AgentGenerator {
         userMap = userProfile.getMap();
     }
 
+    /**
+     * Assign agents to paths some distance from the center
+     * @param amount - Agents to generate
+     */
     public void randomAgentGenerator1(int amount) {
         List<TNode> nodeList = new ArrayList<>();
         double bound = 0.005;
@@ -45,6 +49,11 @@ public class AgentGenerator {
         }
     }
 
+    /**
+     * Calculate euclidean distance
+     * @param node - Node to compare
+     * @return - euc distance
+     */
     private double euclideanDistanceToCenter(GeoPosition node) {
         double latDist = Math.abs(node.getLatitude() - userMap.getLatitude());
         double lonDist = Math.abs(node.getLongitude() - userMap.getLongitude());
@@ -52,6 +61,10 @@ public class AgentGenerator {
         return Math.sqrt(Math.pow(latDist, 2) + Math.pow(lonDist, 2));
     }
 
+    /**
+     * Attempt to calculate furthest distance nodes and assign to agents
+     * @param amount - Agents to generate
+     */
     public void randomAgentGenerator(int amount) {
         double leftBound = userMap.getLatitude() - userMap.getRadius();
         double rightBound = userMap.getLatitude() + userMap.getRadius();

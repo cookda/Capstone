@@ -22,6 +22,13 @@ public class InfoPainter implements Painter<JXMapViewer> {
     private final Font infoFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
     private final DecimalFormat format = new DecimalFormat("#.##");
 
+    /**
+     * Paints the information over the viewer
+     * @param g - Graphics object for the viewer
+     * @param object - The viewer
+     * @param width - Width of the viewport
+     * @param height - Height of the viewport
+     */
     @Override
     public void paint(Graphics2D g, JXMapViewer object, int width, int height) {
         g.setFont(infoFont);

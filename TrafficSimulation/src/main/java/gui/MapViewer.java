@@ -76,19 +76,6 @@ public class MapViewer {
 
         mapViewer.addKeyListener(new PanKeyListener(mapViewer));
 
-        //TODO: Implement tooltips for waypoints https://github.com/msteiger/jxmapviewer2/blob/master/examples/src/sample6_mapkit/Sample6.java
-        mapViewer.addMouseMotionListener(new MouseMotionListener() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-            }
-            @Override
-            public void mouseMoved(MouseEvent e) {
-               // Point2D pos = tileFactory.geoToPixel(getMouseGeoPosition(e.getPoint()), mapViewer.getZoom());
-            }
-        });
-
-
-
 
         wayPainter = new WayPainter(mapViewer);
         setWayLines();
@@ -97,10 +84,6 @@ public class MapViewer {
         waypointPainter.setRenderer(new FancyWaypointRenderer());
         setNodeSet();
 
-        //Add a test agent to the AgentPool
-        //AgentPool.getInstance().addAgent(new Agent(userProfile.getMap().getLatitude(), userProfile.getMap().getLongitude()));
-        //Create/set up the agent painter
-        //AgentPainter agentPainter = new AgentPainter(mapViewer);
         AgentPainter agentPainter = new AgentPainter(mapViewer);
 
         InfoPainter infoPainter = new InfoPainter();
@@ -114,11 +97,6 @@ public class MapViewer {
 
 
         mapViewer.setOverlayPainter(compoundPainter);
-    }
-
-    private GeoPosition getMouseGeoPosition(Point p) {
-        Rectangle viewportBounds = mapViewer.getViewportBounds();
-        return tileFactory.pixelToGeo(new Point(viewportBounds.x + p.x, viewportBounds.y + p.y), mapViewer.getZoom());
     }
 
     public JXMapViewer getMapViewer() {
@@ -164,16 +142,19 @@ public class MapViewer {
         return isMapView;
     }
 
+    /**
+     * Reload the tile factory (used for swapping b/w satellite and map)
+     */
     public void reloadTileFactory() {
         tileFactoryInfo = new VirtualEarthTileFactoryInfo(tileFactoryType);
         tileFactory = new DefaultTileFactory(tileFactoryInfo);
         mapViewer.setTileFactory(tileFactory);
     }
 
+    /**
+     * Sets the lines to be drawn for the ways
+     */
     public void setWayLines() {
-        //This is an ArrayList of a Pair consisting of an ArrayList of Pairs and a Color for the way
-        //In order to retain your sanity, I suggest not attempting to understand it unless required
-        //TODO make this actually readable, make another class
         ArrayList<Pair<ArrayList<Pair<GeoPosition, GeoPosition>>, Color>> nodePairLists = new ArrayList<>();
 
         UserProfile.getInstance().getWayMap().values().forEach(way -> {
@@ -192,6 +173,9 @@ public class MapViewer {
         wayPainter.setWayLines(nodePairLists);
     }
 
+    /**
+     * Sets the nodes we're painting to this set (used for loading)
+     */
     public void setNodeSet() {
         Set<MyWaypoint> pointSet = new HashSet<MyWaypoint>();
 
@@ -206,17 +190,10 @@ public class MapViewer {
         waypointPainter.setWaypoints(pointSet);
     }
 
-    public void setNodeSet(HashSet<TNode> nodes) {
-        Set<MyWaypoint> pointSet = new HashSet<MyWaypoint>();
-
-        //Adds each way node into our Set for painting
-        nodes.forEach(node -> {
-                GeoPosition nodePos = new GeoPosition(node.getLat(), node.getLon());
-                pointSet.add(new MyWaypoint("", Color.WHITE, nodePos));
-        });
-        waypointPainter.setWaypoints(pointSet);
-    }
-
+    /**
+     * Set the paths for our agents
+     * @param list - Agent path list
+     */
     public void setPath(List<List<TNode>> list) {
         pathPainter.setPath(list);
         mapViewer.repaint();

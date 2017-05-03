@@ -20,6 +20,10 @@ public class CacheHandler {
 
     private UserMap um;
 
+    /**
+     * Goes through the cache and checks each line to see if it matches what the entry would be
+     * @return true or false based on the above condition
+     */
     public boolean isCached() {
         um = UserProfile.getInstance().getMap();
         File f = new File(Constants.USER_DIR + CACHE_NAME);
@@ -52,10 +56,13 @@ public class CacheHandler {
     }
 
 
+    /**
+     * Caches the area we are currently using
+     */
     public void cacheArea() {
         File f = new File(Constants.USER_DIR + CACHE_NAME);
         try {
-            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(f, true))); //Make this check if the file exists, false if it does not (append mode)
+            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(f, true)));
             pw.append(buildCacheEntry());
             pw.append('\n');
             pw.close();
@@ -64,12 +71,8 @@ public class CacheHandler {
         }
     }
 
-    public void loadCache() {
-
-    }
-
     /**
-     * Currently naively returns a name for data/img as lat/lon
+     * Returns a name for data/img as lat/lon
      * @return built string of cache entry
      */
     private String buildCacheEntry() {
