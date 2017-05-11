@@ -25,13 +25,19 @@ public class AStar {
     private TNode start;
     private TNode end;
 
-
+    /**
+     * constructor for the a star search needs the trip nodes and a graph to run the serach on
+     * @param agent
+     */
     public AStar(Agent agent){
         graph = GraphSim.getInstance().getGraph();
         trip = agent.getTrip();
         findTripNodes();
     }
 
+    /**
+     * Find the beginning and end nodes for an agent.  Specified by user
+     */
     public void findTripNodes(){
         Set<TNode> vertices = graph.vertexSet(); //graph size is 0 not good
         for (TNode node : vertices) {

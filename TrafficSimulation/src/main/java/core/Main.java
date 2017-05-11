@@ -30,7 +30,7 @@ public class Main {
                 new UserMap(
                         Constants.BOONE_SMALL_LAT,
                         Constants.BOONE_SMALL_LON,
-                        0.050
+                        0.020
                 )
         );
         up.setCache(new CacheHandler());
@@ -38,7 +38,7 @@ public class Main {
         acquireMap();
         parse();
         initGUI();
-        generateAgents(100, 1);
+        generateAgents(100, 0);
         getPaths();
 
     }
